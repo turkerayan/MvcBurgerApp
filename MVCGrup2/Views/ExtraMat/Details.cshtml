@@ -1,0 +1,50 @@
+﻿@model ExtraMatModel
+@{
+    ViewData["Title"] = "Details";
+    int editedItemId = ViewBag.EditedItemId; // ViewBag'den ID'yi al
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ExtraMat</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+    </dl>
+</div>
+<div>
+@*     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> | *@
+    <a asp-action="Edit" asp-route-id="@editedItemId">Edit</a> 
+
+    <a asp-action="Index">Back to List</a>
+</div>
