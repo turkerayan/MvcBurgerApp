@@ -12,8 +12,9 @@ namespace MVCGrup2
 
    builder.Services.AddDbContext<MVCGrup2Context>(options => options.UseSqlServer(connectionString));
 
-   builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true).
-				AddEntityFrameworkStores<MVCGrup2Context>();
+   builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
+				.AddRoles<IdentityRole>()
+				.AddEntityFrameworkStores<MVCGrup2Context>();
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
@@ -33,7 +34,12 @@ namespace MVCGrup2
 
 			app.UseRouting();
 
+			app.UseAuthentication();
+
 			app.UseAuthorization();
+
+			app.MapRazorPages();
+
 
 			app.MapControllerRoute(
 				name: "default",
