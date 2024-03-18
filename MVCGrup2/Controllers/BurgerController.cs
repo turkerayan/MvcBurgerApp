@@ -40,8 +40,17 @@ namespace MVCGrup2.Controllers
             {
                 return NotFound();
             }
+            BurgerModel burgerModel = new BurgerModel
+            {
+                Name = burger.Name,
+                Price = burger.Price,
+                Description = burger.Description,
+                Active = burger.Active,
+                Size = burger.Size
+            };
 
-            return View(burger);
+            ViewBag.Id = id;
+            return View(burgerModel);
         }
 
         // GET: Burger/Create
