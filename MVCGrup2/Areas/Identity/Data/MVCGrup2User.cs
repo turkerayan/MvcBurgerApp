@@ -13,10 +13,12 @@ public class MVCGrup2User : IdentityUser
 {
     [Required]
     public string? Name { get; set; }
-	[Required]
-	public string? Surname { get; set; }
+    [Required]
+    public string? Surname { get; set; }
 
     [NotMapped]
     public string FullName => Name + " " + Surname;
+    [Required]
+    public string? Address { get; set; }
 }
 
