@@ -9,6 +9,7 @@ namespace MVCGrup2.Entities.Concrete
         {
             
         }
+
         //public bool IsActive { get; set; }
     }
 }
