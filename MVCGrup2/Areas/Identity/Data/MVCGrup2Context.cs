@@ -29,4 +29,6 @@ public class MVCGrup2Context : IdentityDbContext<MVCGrup2User>
     public DbSet<ExtraMat> ExtraMats { get; set; }
     public DbSet<Role> Roles { get; set; }
 
+    public DbSet<Cart> Carts { get; set; }  
+
 }
