@@ -32,6 +32,7 @@ namespace MVCGrup2.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -61,6 +62,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -77,6 +79,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -93,6 +96,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -219,6 +223,100 @@ namespace MVCGrup2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BurgerId = table.Column<int>(type: "int", nullable: false),
+                    ExtraMatId = table.Column<int>(type: "int", nullable: false),
+                    DrinkId = table.Column<int>(type: "int", nullable: false),
+                    MVCGrup2UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BurgerCart",
+                columns: table => new
+                {
+                    BurgersId = table.Column<int>(type: "int", nullable: false),
+                    CartsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BurgerCart", x => new { x.BurgersId, x.CartsId });
+                    table.ForeignKey(
+                        name: "FK_BurgerCart_Burgers_BurgersId",
+                        column: x => x.BurgersId,
+                        principalTable: "Burgers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BurgerCart_Carts_CartsId",
+                        column: x => x.CartsId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartDrink",
+                columns: table => new
+                {
+                    CartsId = table.Column<int>(type: "int", nullable: false),
+                    DrinksId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartDrink", x => new { x.CartsId, x.DrinksId });
+                    table.ForeignKey(
+                        name: "FK_CartDrink_Carts_CartsId",
+                        column: x => x.CartsId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartDrink_Drinks_DrinksId",
+                        column: x => x.DrinksId,
+                        principalTable: "Drinks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartExtraMat",
+                columns: table => new
+                {
+                    CartsId = table.Column<int>(type: "int", nullable: false),
+                    ExtraMatsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartExtraMat", x => new { x.CartsId, x.ExtraMatsId });
+                    table.ForeignKey(
+                        name: "FK_CartExtraMat_Carts_CartsId",
+                        column: x => x.CartsId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartExtraMat_ExtraMats_ExtraMatsId",
+                        column: x => x.ExtraMatsId,
+                        principalTable: "ExtraMats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -257,6 +355,26 @@ namespace MVCGrup2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BurgerCart_CartsId",
+                table: "BurgerCart",
+                column: "CartsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartDrink_DrinksId",
+                table: "CartDrink",
+                column: "DrinksId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartExtraMat_ExtraMatsId",
+                table: "CartExtraMat",
+                column: "ExtraMatsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -278,19 +396,31 @@ namespace MVCGrup2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Burgers");
+                name: "BurgerCart");
 
             migrationBuilder.DropTable(
-                name: "Drinks");
+                name: "CartDrink");
 
             migrationBuilder.DropTable(
-                name: "ExtraMats");
+                name: "CartExtraMat");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Burgers");
+
+            migrationBuilder.DropTable(
+                name: "Drinks");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "ExtraMats");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
