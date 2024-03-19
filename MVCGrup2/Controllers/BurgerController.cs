@@ -12,7 +12,7 @@ using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
-    [Authorize(Roles ="Admin")]
+  //  [Authorize(Roles ="Admin")]
     public class BurgerController : Controller
     {
         private readonly MVCGrup2Context _context;
@@ -70,8 +70,23 @@ namespace MVCGrup2.Controllers
         {
             if (ModelState.IsValid)
             {
-                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size);
+                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size,burgerModel.Image.FileName);
 
+                if (burgerModel.Image!=null)
+                {
+                    var fileName = burgerModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    burgerModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    burger.ımageName = fileName;
+
+                }
                 _context.Add(burger);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,7 +116,7 @@ namespace MVCGrup2.Controllers
                 Active = burger.Active,
                 Size = burger.Size
             };
-
+         
             return View(burgerModel);
         }
 
@@ -123,7 +138,31 @@ namespace MVCGrup2.Controllers
             {
                 try
                 {
+
                     Burger burgerUpdate = _context.Burgers.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+
+                    if (burgerModel.Image != null)
+                    {
+                        var fileName = burgerModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        burgerModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        burgerUpdate.ımageName = fileName;
+
+                    }
+
+
+
+
+
+
+
                     burgerUpdate.Name = burgerModel.Name;
                     burgerUpdate.Price = burgerModel.Price;
                     burgerUpdate.Description = burgerModel.Description;
@@ -177,6 +216,17 @@ namespace MVCGrup2.Controllers
         private bool BurgerExists(int id)
         {
             return _context.Burgers.Any(e => e.Id == id);
+        }
+        public void ResimSil(Burger burger)
+        {
+            var ısImage = _context.Burgers.Any(u => u.ımageName == burger.ımageName && u.Id != burger.Id);
+            if (!ısImage)
+            {
+                 var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", burger.ımageName);
+                 System.IO.File.Delete(file);
+
+            }
+           
         }
     }
 }

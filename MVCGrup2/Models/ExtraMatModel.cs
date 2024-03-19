@@ -13,5 +13,7 @@ namespace MVCGrup2.Models
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
+        public IFormFile Image { get; set; }
+
     }
 }

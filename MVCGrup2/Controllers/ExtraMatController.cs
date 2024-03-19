@@ -71,7 +71,22 @@ namespace MVCGrup2.Controllers
         {
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size);
+                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size,extraMatModel.Image.FileName);
+                if (extraMatModel.Image != null)
+                {
+                    var fileName = extraMatModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    extraMatModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    extraMat.ımageName = fileName;
+
+                }
                 _context.Add(extraMat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -131,6 +146,24 @@ namespace MVCGrup2.Controllers
                 try
                 {
                     ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+
+                    if (extraMatModel.Image != null)
+                    {
+                        var fileName = extraMatModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        extraMatModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        ExtraMatUpdate.ımageName = fileName;
+
+                    }
+
+
                     ExtraMatUpdate.Name = extraMatModel.Name;
                     ExtraMatUpdate.Price = extraMatModel.Price;
                     ExtraMatUpdate.Description = extraMatModel.Description;
@@ -185,6 +218,17 @@ namespace MVCGrup2.Controllers
         private bool ExtraMatExists(int id)
         {
             return _context.ExtraMats.Any(e => e.Id == id);
+        }
+        public void ResimSil(ExtraMat extraMat)
+        {
+            var ısImage = _context.ExtraMats.Any(u => u.ımageName == extraMat.ımageName && u.Id != extraMat.Id);
+            if (!ısImage)
+            {
+                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", extraMat.ımageName);
+                System.IO.File.Delete(file);
+
+            }
+
         }
     }
 }

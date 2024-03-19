@@ -74,8 +74,25 @@ namespace MVCGrup2.Controllers
                   drinkModel.Price,
                   drinkModel.Description,
                   drinkModel.Active,
-                  drinkModel.Size
+                  drinkModel.Size,
+                  drinkModel.Image.FileName
+                 
                     );
+                if (drinkModel.Image != null)
+                {
+                    var fileName = drinkModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    drinkModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    drink.ımageName = fileName;
+
+                }
                 _context.Add(drink);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -127,6 +144,26 @@ namespace MVCGrup2.Controllers
                 try
                 {
                     Drink drinkUpdate=_context.Drinks.FirstOrDefault(d=> d.Id == (int)TempData["id"]);
+
+                    if (drinkModel.Image != null)
+                    {
+                        var fileName = drinkModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        drinkModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        drinkUpdate.ımageName = fileName;
+
+                    }
+
+
+
+
                     drinkUpdate.Name=drinkModel.Name;
                     drinkUpdate.Price=drinkModel.Price;
                     drinkUpdate.Description=drinkModel.Description;
@@ -180,6 +217,17 @@ namespace MVCGrup2.Controllers
         private bool DrinkExists(int id)
         {
             return _context.Drinks.Any(e => e.Id == id);
+        }
+        public void ResimSil(Drink drink)
+        {
+            var ısImage = _context.Drinks.Any(u => u.ımageName == drink.ımageName && u.Id != drink.Id);
+            if (!ısImage)
+            {
+                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", drink.ımageName);
+                System.IO.File.Delete(file);
+
+            }
+
         }
     }
 }

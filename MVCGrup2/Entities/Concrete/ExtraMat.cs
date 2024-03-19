@@ -5,7 +5,7 @@ namespace MVCGrup2.Entities.Concrete
 {
     public class ExtraMat : Product
     {
-        public ExtraMat(string name, double price, string description, bool active, Size size) : base(name, price, description, active, size)
+        public ExtraMat(string name, double price, string description, bool active, Size size,string ımageName) : base(name, price, description, active, size, ımageName  )
         {
             
         }
