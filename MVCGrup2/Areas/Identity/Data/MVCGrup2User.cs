@@ -21,6 +21,7 @@ public class MVCGrup2User : IdentityUser
     public string FullName => Name + " " + Surname;
     [Required]
     public string? Address { get; set; }
+
     public ICollection<Cart>Carts { get; set; }
 }
 
