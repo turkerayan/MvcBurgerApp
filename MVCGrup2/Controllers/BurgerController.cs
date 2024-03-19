@@ -12,7 +12,7 @@ using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
     public class BurgerController : Controller
     {
         private readonly MVCGrup2Context _context;

@@ -10,6 +10,7 @@ namespace MVCGrup2.Entities.Concrete
             
         }
         //public bool IsActive { get; set; }
+        public ICollection<Cart> Carts { get; set; }
 
     }
 }
