@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVCGrup2.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class m1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,7 @@ namespace MVCGrup2.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -61,6 +62,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -77,6 +79,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -93,6 +96,7 @@ namespace MVCGrup2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -219,6 +223,26 @@ namespace MVCGrup2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    MVCGrup2UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -257,6 +281,11 @@ namespace MVCGrup2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -279,6 +308,9 @@ namespace MVCGrup2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Burgers");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Drinks");

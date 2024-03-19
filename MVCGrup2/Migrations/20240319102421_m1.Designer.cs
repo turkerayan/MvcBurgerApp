@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    [Migration("20240318111442_mig2")]
-    partial class mig2
+    [Migration("20240319102421_m1")]
+    partial class m1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace MVCGrup2.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -126,6 +130,30 @@ namespace MVCGrup2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Burgers");
+                });
+
+            modelBuilder.Entity("MVCGrup2.Entities.Concrete.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MVCGrup2UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("MVCGrup2.Entities.Concrete.Drink", b =>
@@ -342,6 +370,15 @@ namespace MVCGrup2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MVCGrup2.Entities.Concrete.Cart", b =>
+                {
+                    b.HasOne("MVCGrup2.Data.MVCGrup2User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -391,6 +428,11 @@ namespace MVCGrup2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MVCGrup2.Data.MVCGrup2User", b =>
+                {
+                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }

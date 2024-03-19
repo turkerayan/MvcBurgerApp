@@ -129,6 +129,30 @@ namespace MVCGrup2.Migrations
                     b.ToTable("Burgers");
                 });
 
+            modelBuilder.Entity("MVCGrup2.Entities.Concrete.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MVCGrup2UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("MVCGrup2.Entities.Concrete.Drink", b =>
                 {
                     b.Property<int>("Id")
@@ -343,6 +367,15 @@ namespace MVCGrup2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MVCGrup2.Entities.Concrete.Cart", b =>
+                {
+                    b.HasOne("MVCGrup2.Data.MVCGrup2User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -392,6 +425,11 @@ namespace MVCGrup2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MVCGrup2.Data.MVCGrup2User", b =>
+                {
+                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }
