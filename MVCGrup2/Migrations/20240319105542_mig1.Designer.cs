@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    [Migration("20240319102421_m1")]
-    partial class m1
+    [Migration("20240319105542_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
