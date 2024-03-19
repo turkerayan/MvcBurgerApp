@@ -61,6 +61,8 @@ namespace MVCGrup2.Controllers
             if (ModelState.IsValid)
             {
                 Cart cart = new Cart { BurgerId=cartModel.BurgerId, DrinkId=cartModel.DrinkId, ExtraMatId=cartModel.ExtraMatId,MVCGrup2UserId=cartModel.MVCGrup2UserId };
+
+
                 _context.Add(cart);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
