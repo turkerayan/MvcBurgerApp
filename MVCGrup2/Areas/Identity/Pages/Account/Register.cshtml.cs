@@ -138,20 +138,20 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    //token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-                    token = HttpUtility.UrlEncode(token);
+                    ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                    //token = HttpUtility.UrlEncode(token);
 
-                    string href = $@"https://localhost:7167/Account/Validate?token={token}&email={user.Email}";
+                    string href = $@"https://localhost:7167/Account/Validate?token={code}&email={user.Email}";
 
                     Console.WriteLine(href);
-
-                    string link = $@"<a href='{href}'>Onaylama</a>";
-
-                    MailGonder(user.Email, user.Name + " " + user.Surname, link);
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    string link = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+
+                    MailGonder(user.Email, user.Name + " " + user.Surname, link);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
