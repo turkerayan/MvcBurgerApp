@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MVCGrup2.Data;
+using MVCGrup2.Entities.Concrete;
 
 namespace MVCGrup2.Areas.Identity.Pages.Account
 {
@@ -73,6 +74,21 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
         {
             public string Name { get; set; }
             public string Surname { get; set; }
+            public string? Address { get; set; }
+
+            public string? Phone { get; set; }
+
+            public Gender UserGender { get; set; }
+
+            public DateOnly Birthday { get; set; }
+
+            public ICollection<Cart> Carts { get; set; }
+
+            public enum Gender
+            {
+                Female,
+                Male
+            }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.

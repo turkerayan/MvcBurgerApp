@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
@@ -56,18 +54,15 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BurgerId,ExtraMatId,DrinkId,MVCGrup2UserId")] CartModel cartModel)
+        public async Task<IActionResult> Create([Bind("Id")] Cart cart)
         {
             if (ModelState.IsValid)
             {
-                Cart cart = new Cart { BurgerId=cartModel.BurgerId, DrinkId=cartModel.DrinkId, ExtraMatId=cartModel.ExtraMatId,MVCGrup2UserId=cartModel.MVCGrup2UserId };
-
-
                 _context.Add(cart);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(cart);
         }
 
         // GET: Cart/Edit/5
@@ -91,7 +86,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BurgerId,ExtraMatId,DrinkId,MVCGrup2UserId")] Cart cart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] Cart cart)
         {
             if (id != cart.Id)
             {

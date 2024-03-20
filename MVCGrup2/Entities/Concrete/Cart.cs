@@ -8,7 +8,7 @@ namespace MVCGrup2.Entities.Concrete
 
         public int Id { get; set; }
 
-        public int BurgerId { get; set; }
+        public int burgerid { get; set; }
 
         public ICollection<Burger> Burgers { get; set; }
 

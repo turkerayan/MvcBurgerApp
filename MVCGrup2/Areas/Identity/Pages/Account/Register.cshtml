@@ -28,6 +28,31 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <input asp-for="Input.Address" class="form-control" autocomplete="Address" aria-required="true" placeholder="Address" />
+                <label asp-for="Input.Email">Address</label>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Phone" class="form-control" autocomplete="Phone" aria-required="true" placeholder="Phone" />
+                <label asp-for="Input.Phone">Phone</label>
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="Input.UserGender" class="form-control" asp-items="Html.GetEnumSelectList<MVCGrup2User.Gender>()" aria-required="true" placeholder="Gender" autocomplete="Gender">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="Input.UserGender" class="text-danger"></span>
+            </div>
+            <br />
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Birthday" class="form-control" autocomplete="Birthday" aria-required="true" placeholder="Birthday" type="date"/>
+                <label asp-for="Input.Birthday">Birthday</label>
+                <span asp-validation-for="Input.Birthday" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.Password">Password</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
