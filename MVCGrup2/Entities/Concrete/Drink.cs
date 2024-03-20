@@ -5,7 +5,7 @@ namespace MVCGrup2.Entities.Concrete
 {
     public class Drink : Product
     {
-        public Drink(string name, double price, string description, bool active, Size size,string ımageName) : base(name, price, description, active, size, ımageName)
+        public Drink(string name, double price, string description, bool active, Size size,string? imageName) : base(name, price, description, active, size, imageName)
         {
             
         }

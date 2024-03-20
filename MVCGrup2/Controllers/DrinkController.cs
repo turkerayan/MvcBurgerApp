@@ -90,7 +90,7 @@ namespace MVCGrup2.Controllers
 
                     streamMedia.Close();
 
-                    drink.ımageName = fileName;
+                    drink.ImageName = fileName;
 
                 }
                 _context.Add(drink);
@@ -157,7 +157,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        drinkUpdate.ımageName = fileName;
+                        drinkUpdate.ImageName = fileName;
 
                     }
 
@@ -220,10 +220,10 @@ namespace MVCGrup2.Controllers
         }
         public void ResimSil(Drink drink)
         {
-            var ısImage = _context.Drinks.Any(u => u.ımageName == drink.ımageName && u.Id != drink.Id);
+            var ısImage = _context.Drinks.Any(u => u.ImageName == drink.ImageName && u.Id != drink.Id);
             if (!ısImage)
             {
-                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", drink.ımageName);
+                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", drink.ImageName);
                 System.IO.File.Delete(file);
 
             }

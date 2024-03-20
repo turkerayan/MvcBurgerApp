@@ -70,9 +70,10 @@ namespace MVCGrup2.Controllers
         {
             if (ModelState.IsValid)
             {
-                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size,burgerModel.Image.FileName);
+               
+                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size,burgerModel?.Image?.FileName);
 
-                if (burgerModel.Image!=null)
+                if (burgerModel?.Image!=null)
                 {
                     var fileName = burgerModel.Image.FileName;
 
@@ -84,7 +85,7 @@ namespace MVCGrup2.Controllers
 
                     streamMedia.Close();
 
-                    burger.ımageName = fileName;
+                    burger.ImageName = fileName;
 
                 }
                 _context.Add(burger);
@@ -153,7 +154,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        burgerUpdate.ımageName = fileName;
+                        burgerUpdate.ImageName = fileName;
 
                     }
 
@@ -219,10 +220,10 @@ namespace MVCGrup2.Controllers
         }
         public void ResimSil(Burger burger)
         {
-            var ısImage = _context.Burgers.Any(u => u.ımageName == burger.ımageName && u.Id != burger.Id);
+            var ısImage = _context.Burgers.Any(u => u.ImageName == burger.ImageName && u.Id != burger.Id);
             if (!ısImage)
             {
-                 var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", burger.ımageName);
+                 var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", burger.ImageName);
                  System.IO.File.Delete(file);
 
             }

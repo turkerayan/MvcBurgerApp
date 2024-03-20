@@ -84,7 +84,7 @@ namespace MVCGrup2.Controllers
 
                     streamMedia.Close();
 
-                    extraMat.ımageName = fileName;
+                    extraMat.ImageName = fileName;
 
                 }
                 _context.Add(extraMat);
@@ -159,7 +159,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        ExtraMatUpdate.ımageName = fileName;
+                        ExtraMatUpdate.ImageName = fileName;
 
                     }
 
@@ -221,10 +221,10 @@ namespace MVCGrup2.Controllers
         }
         public void ResimSil(ExtraMat extraMat)
         {
-            var ısImage = _context.ExtraMats.Any(u => u.ımageName == extraMat.ımageName && u.Id != extraMat.Id);
+            var ısImage = _context.ExtraMats.Any(u => u.ImageName == extraMat.ImageName && u.Id != extraMat.Id);
             if (!ısImage)
             {
-                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", extraMat.ımageName);
+                var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", extraMat.ImageName);
                 System.IO.File.Delete(file);
 
             }
