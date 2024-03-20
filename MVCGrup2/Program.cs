@@ -14,6 +14,7 @@ namespace MVCGrup2
 
    builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddRoles<IdentityRole>()
+				.AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<MVCGrup2Context>();
 
 			// Add services to the container.
