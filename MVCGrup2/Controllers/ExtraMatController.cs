@@ -40,16 +40,18 @@ namespace MVCGrup2.Controllers
             }
 
             var extraMat = await _context.ExtraMats
-                .FirstOrDefaultAsync(m => m.Id == id); 
+                .FirstOrDefaultAsync(m => m.Id == id);
             ExtraMatViewModel extraMatModel = new ExtraMatViewModel()
             {
-               Name= extraMat.Name,
-               Description= extraMat.Description,
-               Active=extraMat.Active,
-               Price=extraMat.Price,    
-               Size =extraMat.Size, 
-
-            };
+                Id = extraMat.Id,
+                Name = extraMat.Name,
+                Description = extraMat.Description,
+                Active = extraMat.Active,
+                Price = extraMat.Price,
+                Size = extraMat.Size,
+                ImagePath = "\\Pictures\\" + extraMat.PictureName,
+                ExtraCount= extraMat.ExtraCount,
+        };
             Order order = new Order();
 
 
@@ -78,8 +80,17 @@ namespace MVCGrup2.Controllers
             //extraMatModel.ImagePath = " ";
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat(extraMatModel.Id,extraMatModel.Name,extraMatModel.Price,  extraMatModel.Description,extraMatModel.Active,extraMatModel.Size, extraMatModel.Image.FileName  );
-                extraMat.ExtraCount = extraMatModel.ExtraCount;
+                ExtraMat extraMat = new ExtraMat(
+                    extraMatModel.Id,
+                    extraMatModel.Name,
+                    extraMatModel.Price,  
+                    extraMatModel.Description,
+                    extraMatModel.Active,
+                    extraMatModel.Size, 
+                    extraMatModel.Image.FileName  );
+                    extraMat.ExtraCount = extraMatModel.ExtraCount;
+
+                
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;
@@ -199,14 +210,23 @@ namespace MVCGrup2.Controllers
                 return NotFound();
             }
 
-            var extraMat = await _context.ExtraMats
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (extraMat == null)
+            var extramat = await _context.ExtraMats.FindAsync(id);
+            ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
+            extraMatViewModel.Name = extramat.Name;
+            extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.Price = extramat.Price;
+            extraMatViewModel.Active = extramat.Active;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
+            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
+
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
+            ViewBag.Extramat = "\\Pictures\\" + extramat.PictureName;
+            if (extraMatViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(extraMat);
+            return View(extraMatViewModel);
         }
 
         // POST: ExtraMat/Delete/5
