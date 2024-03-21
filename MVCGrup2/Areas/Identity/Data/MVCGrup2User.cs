@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Enums;
 
 namespace MVCGrup2.Data;
 
@@ -28,12 +29,8 @@ public class MVCGrup2User : IdentityUser
 
     public DateOnly Birthday { get; set; }
 
-    public ICollection<Order> Carts { get; set; }
+    public ICollection<Order> Orders { get; set; }
 
-    public enum Gender
-    {
-        Female,
-        Male
-    }
+ 
 }
 

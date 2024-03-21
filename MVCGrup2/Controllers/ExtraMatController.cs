@@ -29,7 +29,7 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: ExtraMat/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
            
             if (id == null)
@@ -39,7 +39,7 @@ namespace MVCGrup2.Controllers
 
             var extraMat = await _context.ExtraMats
                 .FirstOrDefaultAsync(m => m.Id == id); 
-            ExtraMatModel extraMatModel = new ExtraMatModel()
+            ExtraMatVİewModel extraMatModel = new ExtraMatVİewModel()
             {
                Name= extraMat.Name,
                Description= extraMat.Description,
@@ -68,7 +68,7 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatVİewModel extraMatModel)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace MVCGrup2.Controllers
         // GET: ExtraMat/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatVİewModel extraMatModel)
         {
 
             if (TempData["id"] == null)
@@ -111,7 +111,7 @@ namespace MVCGrup2.Controllers
             {
                 try
                 {
-                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (Guid)TempData["id"]);
 
                     if (extraMatModel.Image != null)
                     {
@@ -150,7 +150,7 @@ namespace MVCGrup2.Controllers
      
 
         // GET: ExtraMat/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -170,7 +170,7 @@ namespace MVCGrup2.Controllers
         // POST: ExtraMat/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var extraMat = await _context.ExtraMats.FindAsync(id);
             if (extraMat != null)
@@ -182,7 +182,7 @@ namespace MVCGrup2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExtraMatExists(int id)
+        private bool ExtraMatExists(Guid id)
         {
             return _context.ExtraMats.Any(e => e.Id == id);
         }

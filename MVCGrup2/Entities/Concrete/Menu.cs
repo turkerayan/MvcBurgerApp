@@ -1,30 +1,38 @@
-﻿using MVCGrup2.Data;
+﻿using Microsoft.AspNetCore.Http.Metadata;
+using MVCGrup2.Data;
+using MVCGrup2.Entities.Abstract;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace MVCGrup2.Entities.Concrete
 {
-    public class Menu
+    public class Menu : Product
     {
-        public Guid Id { get; set; }
+        public Menu(string name, double price, string description, bool active, Size size, string? imagename) : base(name, price, description, active, size, imagename)
+        {
+        }
 
-        public Size Size { get; set; }
 
-        public int ExtraMatId { get; set; }
+        private int _menuCount { get; set; }
+        public int MenuCount
+        {
+            get { return _menuCount; }
+            set { _menuCount = (value < 0) ? 0 : value; }
+        }
 
-        public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
+        public int? ExtraMatId { get; set; }
 
-        [Required]
-        public string MVCGrup2UserId { get; set; }
-        [Required]
-        public MVCGrup2User User { get; set; }
-
-        public int MenuCount { get; set; }
+        public ICollection<ExtraMat>? ExtraMats { get; set; } = new List<ExtraMat>();
 
         public Order Order { get; set; }
 
-        public double MenuPrice { get { return MenuPrice; }
-            set {
+
+        public double MenuPrice
+        {
+            get { return MenuPrice; }
+            set
+            {
+                MenuPrice += MenuPrice * _menuCount;
                 switch (Size)
                 {
 
