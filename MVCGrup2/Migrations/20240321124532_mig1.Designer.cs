@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    [Migration("20240321122823_mig1")]
+    [Migration("20240321124532_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -201,9 +201,6 @@ namespace MVCGrup2.Migrations
 
                     b.Property<int>("MenuCount")
                         .HasColumnType("int");
-
-                    b.Property<double>("MenuPrice")
-                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()

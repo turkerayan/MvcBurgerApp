@@ -199,9 +199,6 @@ namespace MVCGrup2.Migrations
                     b.Property<int>("MenuCount")
                         .HasColumnType("int");
 
-                    b.Property<double>("MenuPrice")
-                        .HasColumnType("float");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
