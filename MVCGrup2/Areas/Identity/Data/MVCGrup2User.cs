@@ -28,7 +28,7 @@ public class MVCGrup2User : IdentityUser
 
     public DateOnly Birthday { get; set; }
 
-    public ICollection<Cart> Carts { get; set; }
+    public ICollection<Order> Carts { get; set; }
 
     public enum Gender
     {

@@ -84,7 +84,7 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
 
             public DateOnly Birthday { get; set; }
 
-            public ICollection<Cart> Carts { get; set; }
+            public ICollection<Order> Carts { get; set; }
 
             public enum Gender
             {

@@ -69,11 +69,11 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,burgerid,Burgers,ExtraMatId,ExtraMats,DrinkId,Drinks")] CartModel cartModel)
+        public async Task<IActionResult> Create([Bind("Id,burgerid,Burgers,ExtraMatId,ExtraMats,DrinkId,Drinks")] OrderModel cartModel)
         {
             var kullaniciId = _userManager.GetUserId(HttpContext.User);
 
-            Cart cart = new Cart()
+            Order cart = new Order()
             {
                 burgerid = cartModel.BurgerId,
 
@@ -122,7 +122,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,burgerid,ExtraMatId,DrinkId")] Cart cart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,burgerid,ExtraMatId,DrinkId")] Order cart)
         {
             if (id != cart.Id)
             {
