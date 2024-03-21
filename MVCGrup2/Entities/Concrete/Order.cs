@@ -17,6 +17,8 @@ namespace MVCGrup2.Entities.Concrete
 
         public DateTime OrderDate { get; set; } = DateTime.Now;
 
+        public OrderStatus OrderStatus { get; set; }
+
         public int OrderCount { get; set; }
 
         //public string? MenuId { get; set; }
