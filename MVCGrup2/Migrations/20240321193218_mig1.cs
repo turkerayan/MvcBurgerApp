@@ -67,7 +67,7 @@ namespace MVCGrup2.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    mageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PictureName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,7 +85,7 @@ namespace MVCGrup2.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    mageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PictureName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

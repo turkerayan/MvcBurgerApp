@@ -55,17 +55,18 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
+        public async Task<IActionResult> Create([Bind("Id,MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
         {
 
-            Menu menu = new Menu() {
-                Name = menuViewModel.Name,
-                Price =menuViewModel.Price,
-                Description =menuViewModel.Description,
-                Active = menuViewModel.Active,
-                Size = menuViewModel.Size,
-                ImageName =menuViewModel.Image.FileName
-                };
+            Menu menu = new Menu(
+                menuViewModel.Id,   
+                menuViewModel.Name,
+                menuViewModel.Price,
+                menuViewModel.Description,
+                menuViewModel.Active,
+                menuViewModel.Size,
+                menuViewModel.Image.FileName
+                );
             menu.MenuCount = menuViewModel.MenuCount;
             menu.Price = menuViewModel.Price;
             if (ModelState.IsValid)
@@ -99,7 +100,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("MenuCount,Id,Name,Price,Description,Active,Size,ImageName")] Menu menu)
+        public async Task<IActionResult> Edit(Guid id, [Bind("MenuCount,Id,Name,Price,Description,Active,Size,PictureName")] Menu menu)
         {
             if (id != menu.Id)
             {

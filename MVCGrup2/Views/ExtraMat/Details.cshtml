@@ -1,4 +1,4 @@
-﻿@model MVCGrup2.Entities.Concrete.ExtraMat
+﻿@model ExtraMatViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -47,10 +47,10 @@
             @Html.DisplayFor(model => model.Size)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageName)
+            @Html.DisplayNameFor(model => model.ImagePath)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageName)
+            @Html.DisplayFor(model => model.ImagePath)
         </dd>
     </dl>
 </div>

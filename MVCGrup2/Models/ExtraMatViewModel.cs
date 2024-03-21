@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using MVCGrup2.Entities.Abstract;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
@@ -21,6 +22,7 @@ namespace MVCGrup2.Models
         public Size Size { get; set; }
 
         public IFormFile Image { get; set; }
+        [ValidateNever]
         public string ImagePath { get; set; }
 
         //public string OrderId { get; set; }

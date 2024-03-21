@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    [Migration("20240321143927_mig1")]
+    [Migration("20240321193218_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -146,14 +146,14 @@ namespace MVCGrup2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PictureName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
-
-                    b.Property<string>("mageName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -180,14 +180,14 @@ namespace MVCGrup2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PictureName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
-
-                    b.Property<string>("mageName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

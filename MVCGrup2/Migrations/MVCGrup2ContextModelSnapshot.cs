@@ -143,14 +143,14 @@ namespace MVCGrup2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PictureName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
-
-                    b.Property<string>("mageName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -177,14 +177,14 @@ namespace MVCGrup2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PictureName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
-
-                    b.Property<string>("mageName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

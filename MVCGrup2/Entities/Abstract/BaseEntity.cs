@@ -5,15 +5,16 @@ namespace MVCGrup2.Entities.Abstract
 {
     public abstract class BaseEntity : IBaseEntity
     {
-        //protected Product(string name, double price, string description, bool active, Size size, string? imagename)
-        //{
-        //    Name = name;
-        //    Price = price;
-        //    Description = description;
-        //    Active = active;
-        //    Size = size;
-        //    mageName = imagename;
-        //}
+        protected BaseEntity(Guid id,string name, double price, string description, bool active, Size size, string? pictureName)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+            Description = description;
+            Active = active;
+            Size = size;
+            PictureName = pictureName;
+        }
         public Guid Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
@@ -21,7 +22,7 @@ namespace MVCGrup2.Entities.Abstract
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
-        public string? ImageName { get; set; }
+        public string? PictureName { get; set; }
 
     }
 }

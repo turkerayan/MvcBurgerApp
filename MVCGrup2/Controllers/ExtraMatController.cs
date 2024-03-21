@@ -73,11 +73,13 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("Id,ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
+            //extraMatModel.ImagePath = " ";
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat() { Name= extraMatModel.Name, Price =extraMatModel.Price, Description= extraMatModel.Description,Active= extraMatModel.Active,Size = extraMatModel.Size, ImageName = extraMatModel.Image.FileName,ExtraCount = extraMatModel.ExtraCount  };
+                ExtraMat extraMat = new ExtraMat(extraMatModel.Id,extraMatModel.Name,extraMatModel.Price,  extraMatModel.Description,extraMatModel.Active,extraMatModel.Size, extraMatModel.Image.FileName  );
+                extraMat.ExtraCount = extraMatModel.ExtraCount;
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;
@@ -90,7 +92,7 @@ namespace MVCGrup2.Controllers
                     
                     streamMedia.Close();
 
-                    extraMat.ImageName = fileName;
+                    extraMat.PictureName = fileName;
 
                 }
                 _context.Add(extraMat);
@@ -117,10 +119,10 @@ namespace MVCGrup2.Controllers
             extraMatViewModel.Price = extramat.Price;
             extraMatViewModel.Active = extramat.Active;
             extraMatViewModel.ExtraCount = extramat.ExtraCount;
-            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.ImageName;
+            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
 
-            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.ImageName);
-            ViewBag.Extramat = "\\Pictures\\" + extramat.ImageName;
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
+            ViewBag.Extramat = "\\Pictures\\" + extramat.PictureName;
 
             //FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
@@ -138,26 +140,26 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
 
-            if (TempData["id"] == null)
-            {
-                return NotFound();
-            }
+            //if (TempData["id"] == null)
+            //{
+            //    return NotFound();
+            //}
 
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (Guid)TempData["id"]);
+                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == id);
 
                     if (extraMatModel.Image != null)
                     {
                         var fileName = extraMatModel.Image.FileName;
 
-                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures");
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures",fileName);
 
                         var streamMedia = new FileStream(location, FileMode.Create);
 
@@ -165,7 +167,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        ExtraMatUpdate.ImageName = fileName;
+                        ExtraMatUpdate.PictureName = fileName;
 
                     }
 
