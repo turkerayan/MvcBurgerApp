@@ -71,11 +71,15 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
+
+
+
+
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size, extraMatModel.Image.FileName);
+                ExtraMat extraMat = new ExtraMat() { Name= extraMatModel.Name, Price =extraMatModel.Price, Description= extraMatModel.Description,Active= extraMatModel.Active,Size = extraMatModel.Size, mageName = extraMatModel.Image.FileName,ExtraCount = extraMatModel.ExtraCount  };
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;

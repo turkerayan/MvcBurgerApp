@@ -9,10 +9,17 @@ namespace MVCGrup2.Entities.Concrete
     public class Menu : Product
     {
         
-        public Menu(string name, double price, string description, bool active, Size size, string mageName) : base(name, price, description, active, size, mageName)
-        {
-        }
-
+        //public Menu(string name, double price, string description, bool active, Size size, string imagename) : base(name, price, description, active, size, imagename)
+        //{
+        //}
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
+        public bool Active { get; set; }
+        [EnumDataType(typeof(Size))]
+        public Size Size { get; set; }
+        public string? ImageName { get; set; }
         private int _menuCount { get; set; }
         public int MenuCount
         {
@@ -26,7 +33,7 @@ namespace MVCGrup2.Entities.Concrete
 
         //public string? OrderId { get; set; }
 
-        public ICollection<Order>? Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
      
 
 

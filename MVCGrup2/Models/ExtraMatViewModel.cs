@@ -22,11 +22,11 @@ namespace MVCGrup2.Models
 
         //public string OrderId { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        //public ICollection<Order> Orders { get; set; }
 
         //public string MenuId { get; set; }
 
-        public ICollection<Menu> Menus { get; set; }
+        //public ICollection<Menu> Menus { get; set; }
 
         private int _extraCount { get; set; }
 
@@ -35,29 +35,28 @@ namespace MVCGrup2.Models
             get { return _extraCount; }
             set { _extraCount = (value < 0) ? 0 : value; }
         }
+        private double _price;
+
         public double Price
         {
-            get { return Price; }
+            get { return _price; }
             set
             {
+                _price = value; // Store the value in the private field
+
                 switch (Size)
                 {
-
                     case Size.Medium:
-                        Price += Price * 0.1;
+                        _price *= 1.1d;
                         break;
                     case Size.Large:
-                        Price += Price * 0.2;
+                        _price *= 1.2d;
                         break;
                     case Size.XLarge:
-                        Price += Price * 0.3;
-                        break;
-                    case Size.Small:
-                        break;
-                    default:
+                        _price *= 1.3d;
                         break;
                 }
-                Price += Price * ExtraCount;
+                _price = _price * ExtraCount;
             }
         }
     }

@@ -58,14 +58,14 @@ namespace MVCGrup2.Controllers
         public async Task<IActionResult> Create([Bind("MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
         {
 
-            Menu menu = new Menu(
-                menuViewModel.Name,
-                menuViewModel.MenuPrice,
-                menuViewModel.Description,
-                menuViewModel.Active,
-                menuViewModel.Size,
-                menuViewModel.Image.FileName
-                );
+            Menu menu = new Menu() {
+                Name = menuViewModel.Name,
+                Price =menuViewModel.MenuPrice,
+                Description =menuViewModel.Description,
+                Active = menuViewModel.Active,
+                Size = menuViewModel.Size,
+                ImageName =menuViewModel.Image.FileName
+                };
             menu.MenuCount = menuViewModel.MenuCount;
             menu.Price = menuViewModel.MenuPrice;
             if (ModelState.IsValid)
