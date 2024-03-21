@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MVCGrup2.Entities.Concrete;
 
 namespace MVCGrup2.Data;
 
@@ -20,5 +21,19 @@ public class MVCGrup2User : IdentityUser
     public string FullName => Name + " " + Surname;
     [Required]
     public string? Address { get; set; }
+
+    public string? Phone { get; set; }
+
+    public Gender UserGender { get; set; }
+
+    public DateOnly Birthday { get; set; }
+
+    public ICollection<Cart> Carts { get; set; }
+
+    public enum Gender
+    {
+        Female,
+        Male
+    }
 }
 
