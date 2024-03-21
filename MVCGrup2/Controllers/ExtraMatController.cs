@@ -26,6 +26,7 @@ namespace MVCGrup2.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.ExtraMats.ToListAsync());
+
         }
 
         // GET: ExtraMat/Details/5
@@ -73,10 +74,6 @@ namespace MVCGrup2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
-
-
-
-
             if (ModelState.IsValid)
             {
                 ExtraMat extraMat = new ExtraMat() { Name= extraMatModel.Name, Price =extraMatModel.Price, Description= extraMatModel.Description,Active= extraMatModel.Active,Size = extraMatModel.Size, mageName = extraMatModel.Image.FileName,ExtraCount = extraMatModel.ExtraCount  };
@@ -103,9 +100,41 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: ExtraMat/Edit/5
+        // GET: Order/Edit/5
+       
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var extramat = await _context.ExtraMats.FindAsync(id);
+            ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
+            extraMatViewModel.Name = extramat.Name;
+            extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.Price = extramat.Price;
+            extraMatViewModel.Active = extramat.Active;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", extramat.ImageName);
+            ViewBag.Extramat = filePath;  
+
+            //FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            //IFormFile file = new 
+            //extraMatViewModel.Image = fileStream.
+
+            extraMatViewModel.Size = extramat.Size;
+            if (extraMatViewModel == null)
+            {
+                return NotFound();
+            }
+            return View(extraMatViewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatViewModel extraMatModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
 
             if (TempData["id"] == null)

@@ -60,14 +60,14 @@ namespace MVCGrup2.Controllers
 
             Menu menu = new Menu() {
                 Name = menuViewModel.Name,
-                Price =menuViewModel.MenuPrice,
+                Price =menuViewModel.Price,
                 Description =menuViewModel.Description,
                 Active = menuViewModel.Active,
                 Size = menuViewModel.Size,
                 ImageName =menuViewModel.Image.FileName
                 };
             menu.MenuCount = menuViewModel.MenuCount;
-            menu.Price = menuViewModel.MenuPrice;
+            menu.Price = menuViewModel.Price;
             if (ModelState.IsValid)
             {
                 menu.Id = Guid.NewGuid();

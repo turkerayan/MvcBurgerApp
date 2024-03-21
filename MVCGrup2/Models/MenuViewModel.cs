@@ -18,9 +18,6 @@ namespace MVCGrup2.Models
 
         public Size Size { get; set; }
 
-      
-
-
         //public int ExtraMatId { get; set; }
 
         //public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
@@ -35,38 +32,30 @@ namespace MVCGrup2.Models
 
         public ICollection<Order>? Orders { get; set; }
 
-        public double MenuPrice
+        private double _price;
+
+        public double Price
         {
-            get { return MenuPrice; }
+            get { return _price; }
             set
             {
-                MenuPrice += MenuPrice * MenuCount;
+                _price = value; // Store the value in the private field
+
                 switch (Size)
                 {
-
                     case Size.Medium:
-                        MenuPrice += MenuPrice * 0.1;
+                        _price *= 1.1d;
                         break;
                     case Size.Large:
-                        MenuPrice += MenuPrice * 0.2;
+                        _price *= 1.2d;
                         break;
                     case Size.XLarge:
-                        MenuPrice += MenuPrice * 0.3;
-                        break;
-                    case Size.Small:
-                        break;
-                    default:
+                        _price *= 1.3d;
                         break;
                 }
-
-                //if (ExtraMats != null)
-                //{
-                //    foreach (var item in ExtraMats)
-                //    {
-                //        MenuPrice += item.Price;
-                //    }
-                //}
+                _price = _price * MenuCount;
             }
         }
+        }
     }
-}
+

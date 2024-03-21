@@ -19,7 +19,7 @@ namespace MVCGrup2.Entities.Concrete
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
-        public string? mageName { get; set; }
+        public string? ImageName { get; set; }
         public ICollection<Order> Orders { get; set; }
 
         //public string MenuId { get; set; }
