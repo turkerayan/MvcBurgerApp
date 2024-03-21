@@ -9,17 +9,17 @@ namespace MVCGrup2.Models
     {
         public Size Size { get; set; }
 
-        public int ExtraMatId { get; set; }
+        //public int ExtraMatId { get; set; }
 
-        public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
+        //public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
 
-        public Order Order { get; set; }
+        //public Order Order { get; set; }
 
         public IFormFile Image { get; set; }
 
         public int MenuCount { get; set; }
 
-        public string? OrderId { get; set; }
+        //public string? OrderId { get; set; }
 
         public ICollection<Order>? Orders { get; set; }
 
@@ -47,13 +47,13 @@ namespace MVCGrup2.Models
                         break;
                 }
 
-                if (ExtraMats != null)
-                {
-                    foreach (var item in ExtraMats)
-                    {
-                        MenuPrice += item.Price;
-                    }
-                }
+                //if (ExtraMats != null)
+                //{
+                //    foreach (var item in ExtraMats)
+                //    {
+                //        MenuPrice += item.Price;
+                //    }
+                //}
             }
         }
     }

@@ -61,8 +61,6 @@ namespace MVCGrup2.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MenuId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExtraCount = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
@@ -82,8 +80,6 @@ namespace MVCGrup2.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MenuCount = table.Column<int>(type: "int", nullable: false),
-                    ExtraMatId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -222,43 +218,17 @@ namespace MVCGrup2.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderCount = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExtraMatId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Total = table.Column<double>(type: "float", nullable: false),
-                    MVCGrup2UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_MVCGrup2UserId",
-                        column: x => x.MVCGrup2UserId,
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExtraMatMenu",
-                columns: table => new
-                {
-                    ExtraMatsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MenusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExtraMatMenu", x => new { x.ExtraMatsId, x.MenusId });
-                    table.ForeignKey(
-                        name: "FK_ExtraMatMenu_ExtraMats_ExtraMatsId",
-                        column: x => x.ExtraMatsId,
-                        principalTable: "ExtraMats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExtraMatMenu_Menus_MenusId",
-                        column: x => x.MenusId,
-                        principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -349,11 +319,6 @@ namespace MVCGrup2.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExtraMatMenu_MenusId",
-                table: "ExtraMatMenu",
-                column: "MenusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ExtraMatOrder_OrdersId",
                 table: "ExtraMatOrder",
                 column: "OrdersId");
@@ -364,9 +329,9 @@ namespace MVCGrup2.Migrations
                 column: "OrdersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_MVCGrup2UserId",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "MVCGrup2UserId");
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -386,9 +351,6 @@ namespace MVCGrup2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "ExtraMatMenu");
 
             migrationBuilder.DropTable(
                 name: "ExtraMatOrder");

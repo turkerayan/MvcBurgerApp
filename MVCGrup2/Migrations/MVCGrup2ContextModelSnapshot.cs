@@ -22,21 +22,6 @@ namespace MVCGrup2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ExtraMatMenu", b =>
-                {
-                    b.Property<Guid>("ExtraMatsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MenusId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ExtraMatsId", "MenusId");
-
-                    b.HasIndex("MenusId");
-
-                    b.ToTable("ExtraMatMenu");
-                });
-
             modelBuilder.Entity("ExtraMatOrder", b =>
                 {
                     b.Property<Guid>("ExtraMatsId")
@@ -154,15 +139,7 @@ namespace MVCGrup2.Migrations
                     b.Property<int>("ExtraCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("MenuId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -193,17 +170,11 @@ namespace MVCGrup2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ExtraMatId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MenuCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
@@ -226,15 +197,6 @@ namespace MVCGrup2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ExtraMatId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MVCGrup2UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MenuId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("OrderCount")
                         .HasColumnType("int");
 
@@ -244,9 +206,12 @@ namespace MVCGrup2.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MVCGrup2UserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -420,21 +385,6 @@ namespace MVCGrup2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ExtraMatMenu", b =>
-                {
-                    b.HasOne("MVCGrup2.Entities.Concrete.ExtraMat", null)
-                        .WithMany()
-                        .HasForeignKey("ExtraMatsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MVCGrup2.Entities.Concrete.Menu", null)
-                        .WithMany()
-                        .HasForeignKey("MenusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ExtraMatOrder", b =>
                 {
                     b.HasOne("MVCGrup2.Entities.Concrete.ExtraMat", null)
@@ -452,9 +402,11 @@ namespace MVCGrup2.Migrations
 
             modelBuilder.Entity("MVCGrup2.Entities.Concrete.Order", b =>
                 {
-                    b.HasOne("MVCGrup2.Data.MVCGrup2User", null)
+                    b.HasOne("MVCGrup2.Data.MVCGrup2User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("MVCGrup2UserId");
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MenuOrder", b =>

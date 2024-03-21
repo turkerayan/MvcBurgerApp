@@ -13,11 +13,11 @@ using MVCGrup2.Models;
 namespace MVCGrup2.Controllers
 {
     //[Authorize(Roles="Admin")]
-    public class ExtraMatController : Controller
+    public class ExtraMatController2 : Controller
     {
         private readonly MVCGrup2Context _context;
 
-        public ExtraMatController(MVCGrup2Context context)
+        public ExtraMatController2(MVCGrup2Context context)
         {
             _context = context;
         }
@@ -47,7 +47,10 @@ namespace MVCGrup2.Controllers
                Price=extraMat.Price,    
                Size =extraMat.Size, 
 
-            }; 
+            };
+            Order order = new Order();
+
+
             if (extraMat == null)
             {
                 return NotFound();

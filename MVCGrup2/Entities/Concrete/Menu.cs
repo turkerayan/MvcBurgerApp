@@ -20,11 +20,11 @@ namespace MVCGrup2.Entities.Concrete
             set { _menuCount = (value < 0) ? 0 : value; }
         }
 
-        public string? ExtraMatId { get; set; }
+        //public string? ExtraMatId { get; set; }
 
-        public ICollection<ExtraMat>? ExtraMats { get; set; }
+        //public ICollection<ExtraMat>? ExtraMats { get; set; }
 
-        public string? OrderId { get; set; }
+        //public string? OrderId { get; set; }
 
         public ICollection<Order>? Orders { get; set; }
      
