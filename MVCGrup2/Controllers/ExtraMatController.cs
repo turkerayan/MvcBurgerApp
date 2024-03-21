@@ -13,11 +13,11 @@ using MVCGrup2.Models;
 namespace MVCGrup2.Controllers
 {
     //[Authorize(Roles="Admin")]
-    public class ExtraMatController2 : Controller
+    public class ExtraMatController : Controller
     {
         private readonly MVCGrup2Context _context;
 
-        public ExtraMatController2(MVCGrup2Context context)
+        public ExtraMatController(MVCGrup2Context context)
         {
             _context = context;
         }
