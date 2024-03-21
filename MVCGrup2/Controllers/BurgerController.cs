@@ -66,12 +66,27 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size")] BurgerModel burgerModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active")] BurgerModel burgerModel)
         {
             if (ModelState.IsValid)
             {
-                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size);
+                Burger burger = new Burger(burgerModel.Name, burgerModel.Price, burgerModel.Description, burgerModel.Active, burgerModel.Size, burgerModel?.Image?.FileName);
 
+                if (burgerModel?.Image != null)
+                {
+                    var fileName = burgerModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    burgerModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    burger.ImageName = fileName;
+
+                }
                 _context.Add(burger);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -140,9 +155,6 @@ namespace MVCGrup2.Controllers
                         burgerUpdate.ImageName = fileName;
 
                     }
-
-
-
 
                     burgerUpdate.Name = burgerModel.Name;
                     burgerUpdate.Price = burgerModel.Price;

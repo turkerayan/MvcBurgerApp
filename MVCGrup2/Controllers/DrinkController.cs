@@ -150,39 +150,6 @@ namespace MVCGrup2.Controllers
             return View(drinkModel);
         }
 
-        // POST: Drink/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] DrinkModel drinkModel)
-        {
-            if (TempData["id"]==null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Drink drinkUpdate=_context.Drinks.FirstOrDefault(d=> d.Id == (int)TempData["id"]);
-                    drinkUpdate.Name=drinkModel.Name;
-                    drinkUpdate.Price=drinkModel.Price;
-                    drinkUpdate.Description=drinkModel.Description;
-                    drinkUpdate.Active=drinkModel.Active;
-                    drinkUpdate.Size=drinkModel.Size;
-                    _context.Update(drinkUpdate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                return RedirectToAction(nameof(Index));
-                }
-              return RedirectToAction(nameof(Index));
-            }
-            return View(drinkModel);
-        }
 
         // GET: Drink/Delete/5
         public async Task<IActionResult> Delete(int? id)

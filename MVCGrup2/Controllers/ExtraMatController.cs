@@ -65,8 +65,7 @@ namespace MVCGrup2.Controllers
         // POST: ExtraMat/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatModel extraMatModel)
@@ -148,42 +147,7 @@ namespace MVCGrup2.Controllers
             return View(extraMatModel);
         }
 
-        // POST: ExtraMat/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
-        {
-
-            if (TempData["id"] == null)
-            {
-                return NotFound();
-            }
-
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
-                    ExtraMatUpdate.Name = extraMatModel.Name;
-                    ExtraMatUpdate.Price = extraMatModel.Price;
-                    ExtraMatUpdate.Description = extraMatModel.Description;
-                    ExtraMatUpdate.Active = extraMatModel.Active;
-                    ExtraMatUpdate.Size = extraMatModel.Size;
-                    _context.Update(ExtraMatUpdate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(extraMatModel);
-        }
-
+     
 
         // GET: ExtraMat/Delete/5
         public async Task<IActionResult> Delete(int? id)
