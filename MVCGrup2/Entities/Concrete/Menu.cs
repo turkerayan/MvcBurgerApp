@@ -8,7 +8,8 @@ namespace MVCGrup2.Entities.Concrete
 {
     public class Menu : Product
     {
-        public Menu(string name, double price, string description, bool active, Size size, string? imagename) : base(name, price, description, active, size, imagename)
+        
+        public Menu(string name, double price, string description, bool active, Size size, string imagename) : base(name, price, description, active, size, imagename)
         {
         }
 
