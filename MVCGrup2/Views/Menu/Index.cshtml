@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.mageName)
+                @Html.DisplayNameFor(model => model.ImageName)
             </th>
             <th></th>
         </tr>
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.mageName)
+                    @Html.DisplayFor(modelItem => item.ImageName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

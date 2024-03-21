@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MVCGrup2.Entities.Concrete.ExtraMat>
+﻿@using MVCGrup2.Entities.Concrete
+@model IEnumerable<ExtraMat>
 
 @{
     ViewData["Title"] = "Index";
@@ -30,9 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Size)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.mageName)
-            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th> *@
             <th></th>
         </tr>
     </thead>
@@ -57,9 +58,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mageName)
-            </td>
+        @*     <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td> *@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

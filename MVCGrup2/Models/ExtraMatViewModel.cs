@@ -8,6 +8,8 @@ namespace MVCGrup2.Models
 {
     public class ExtraMatViewModel
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -19,6 +21,7 @@ namespace MVCGrup2.Models
         public Size Size { get; set; }
 
         public IFormFile Image { get; set; }
+        public string ImagePath { get; set; }
 
         //public string OrderId { get; set; }
 

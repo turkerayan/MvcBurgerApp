@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVCGrup2.Entities.Concrete
 {
-    public class Menu : Product
+    public class Menu : BaseEntity
     {
         
         //public Menu(string name, double price, string description, bool active, Size size, string imagename) : base(name, price, description, active, size, imagename)

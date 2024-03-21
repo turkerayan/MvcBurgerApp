@@ -2,7 +2,7 @@
 
 namespace MVCGrup2.Entities.Abstract
 {
-    public interface IProduct
+    public interface IBaseEntity
     {
         public Guid Id { get; set; }
 

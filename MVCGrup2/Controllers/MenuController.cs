@@ -99,7 +99,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("MenuCount,Id,Name,Price,Description,Active,Size,mageName")] Menu menu)
+        public async Task<IActionResult> Edit(Guid id, [Bind("MenuCount,Id,Name,Price,Description,Active,Size,ImageName")] Menu menu)
         {
             if (id != menu.Id)
             {

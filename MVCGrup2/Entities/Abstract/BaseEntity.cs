@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVCGrup2.Entities.Abstract
 {
-    public abstract class Product : IProduct
+    public abstract class BaseEntity : IBaseEntity
     {
         //protected Product(string name, double price, string description, bool active, Size size, string? imagename)
         //{
@@ -21,7 +21,7 @@ namespace MVCGrup2.Entities.Abstract
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
-        public string? mageName { get; set; }
+        public string? ImageName { get; set; }
 
     }
 }

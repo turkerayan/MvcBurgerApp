@@ -27,6 +27,7 @@ namespace MVCGrup2.Controllers
         {
             return View(await _context.ExtraMats.ToListAsync());
 
+
         }
 
         // GET: ExtraMat/Details/5
@@ -76,7 +77,7 @@ namespace MVCGrup2.Controllers
         {
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat() { Name= extraMatModel.Name, Price =extraMatModel.Price, Description= extraMatModel.Description,Active= extraMatModel.Active,Size = extraMatModel.Size, mageName = extraMatModel.Image.FileName,ExtraCount = extraMatModel.ExtraCount  };
+                ExtraMat extraMat = new ExtraMat() { Name= extraMatModel.Name, Price =extraMatModel.Price, Description= extraMatModel.Description,Active= extraMatModel.Active,Size = extraMatModel.Size, ImageName = extraMatModel.Image.FileName,ExtraCount = extraMatModel.ExtraCount  };
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;
@@ -86,10 +87,10 @@ namespace MVCGrup2.Controllers
                     var streamMedia = new FileStream(location, FileMode.Create);
 
                     extraMatModel.Image.CopyTo(streamMedia);
-
+                    
                     streamMedia.Close();
 
-                    extraMat.mageName = fileName;
+                    extraMat.ImageName = fileName;
 
                 }
                 _context.Add(extraMat);
@@ -116,15 +117,18 @@ namespace MVCGrup2.Controllers
             extraMatViewModel.Price = extramat.Price;
             extraMatViewModel.Active = extramat.Active;
             extraMatViewModel.ExtraCount = extramat.ExtraCount;
+            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.ImageName;
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", extramat.ImageName);
-            ViewBag.Extramat = filePath;  
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.ImageName);
+            ViewBag.Extramat = "\\Pictures\\" + extramat.ImageName;
 
             //FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            //IFormFile file = new 
+
+            //IFormFile file 
+
             //extraMatViewModel.Image = fileStream.
 
-            extraMatViewModel.Size = extramat.Size;
+            //extraMatViewModel.Size = extramat.Size;
             if (extraMatViewModel == null)
             {
                 return NotFound();
@@ -161,7 +165,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        ExtraMatUpdate.mageName = fileName;
+                        ExtraMatUpdate.ImageName = fileName;
 
                     }
 

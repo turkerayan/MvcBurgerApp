@@ -4,6 +4,8 @@ namespace MVCGrup2.Models
 {
     public class OrderViewModel
     {
+        public Guid Id { get; set; }
+
         public DateTime OrderDate { get; set; } = DateTime.Now;
 
         public int OrderCount { get; set; }

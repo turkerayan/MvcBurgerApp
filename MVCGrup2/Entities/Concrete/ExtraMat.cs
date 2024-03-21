@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVCGrup2.Entities.Concrete
 {
-    public class ExtraMat : Product
+    public class ExtraMat : BaseEntity
     {
         //public ExtraMat(string name, double price, string description, bool active, Size size, string? mageName) : base(name, price, description, active, size, mageName)
         //{
