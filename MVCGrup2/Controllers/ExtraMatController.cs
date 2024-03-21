@@ -71,7 +71,7 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
             if (ModelState.IsValid)
             {

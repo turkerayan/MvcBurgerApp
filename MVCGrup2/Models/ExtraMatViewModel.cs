@@ -20,11 +20,11 @@ namespace MVCGrup2.Models
 
         public IFormFile Image { get; set; }
 
-        public string OrderId { get; set; }
+        //public string OrderId { get; set; }
 
         public ICollection<Order> Orders { get; set; }
 
-        public string MenuId { get; set; }
+        //public string MenuId { get; set; }
 
         public ICollection<Menu> Menus { get; set; }
 

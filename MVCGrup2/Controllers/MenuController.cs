@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
@@ -54,8 +55,19 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MenuCount,Id,Name,Price,Description,Active,Size,mageName")] Menu menu)
+        public async Task<IActionResult> Create([Bind("MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
         {
+
+            Menu menu = new Menu(
+                menuViewModel.Name,
+                menuViewModel.MenuPrice,
+                menuViewModel.Description,
+                menuViewModel.Active,
+                menuViewModel.Size,
+                menuViewModel.Image.FileName
+                );
+            menu.MenuCount = menuViewModel.MenuCount;
+            menu.Price = menuViewModel.MenuPrice;
             if (ModelState.IsValid)
             {
                 menu.Id = Guid.NewGuid();

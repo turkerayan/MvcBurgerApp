@@ -1,4 +1,5 @@
-﻿@model MVCGrup2.Entities.Concrete.Menu
+﻿@using MVCGrup2.Enums
+@model MenuViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -23,9 +24,9 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="MenuPrice" class="control-label"></label>
+                <input asp-for="MenuPrice" class="form-control" />
+                <span asp-validation-for="MenuPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -39,13 +40,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control"></select>
+                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<Size>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="mageName" class="control-label"></label>
-                <input asp-for="mageName" class="form-control" />
-                <span asp-validation-for="mageName" class="text-danger"></span>
+                <label asp-for="Image" class="control-label">Image</label>
+                <input type="file" asp-for="Image" class="form-control" />ImageLoad
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,13 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace MVCGrup2.Models
 {
     public class MenuViewModel
     {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public bool Active { get; set; }
+
+        [EnumDataType(typeof(Size))]
+
         public Size Size { get; set; }
+
+      
+
 
         //public int ExtraMatId { get; set; }
 
