@@ -67,11 +67,28 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatModel extraMatModel)
         {
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size);
+                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size, extraMatModel.Image.FileName);
+                if (extraMatModel.Image != null)
+                {
+                    var fileName = extraMatModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", fileName);
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    extraMatModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    extraMat.ImageName = fileName;
+
+                }
                 _context.Add(extraMat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -80,36 +97,55 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: ExtraMat/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
         {
-            if (id == null)
+
+            if (TempData["id"] == null)
             {
                 return NotFound();
             }
 
-            var extraMat = await _context.ExtraMats.FindAsync(id);
-            if (extraMat == null)
+
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                try
+                {
+                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+
+                    if (extraMatModel.Image != null)
+                    {
+                        var fileName = extraMatModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        extraMatModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        ExtraMatUpdate.ImageName = fileName;
+
+                    }
+
+
+                    ExtraMatUpdate.Name = extraMatModel.Name;
+                    ExtraMatUpdate.Price = extraMatModel.Price;
+                    ExtraMatUpdate.Description = extraMatModel.Description;
+                    ExtraMatUpdate.Active = extraMatModel.Active;
+                    ExtraMatUpdate.Size = extraMatModel.Size;
+                    _context.Update(ExtraMatUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Index));
             }
-            TempData["id"] = extraMat.Id;
-
-            ExtraMatModel extraMatModel = new ExtraMatModel()
-            {
-                Name = extraMat.Name,
-                Price = extraMat.Price,
-                Description = extraMat.Description,
-                Active = extraMat.Active,
-                Size = extraMat.Size
-
-            };
             return View(extraMatModel);
-
-
-
-
-
-
         }
 
         // POST: ExtraMat/Edit/5

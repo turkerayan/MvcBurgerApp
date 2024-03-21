@@ -110,7 +110,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description,Active,Size")] BurgerModel burgerModel)
+        public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description,Active,Size,Image")] BurgerModel burgerModel)
         {
 
             if (TempData["id"] == null)
@@ -123,7 +123,27 @@ namespace MVCGrup2.Controllers
             {
                 try
                 {
+
                     Burger burgerUpdate = _context.Burgers.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+
+                    if (burgerModel.Image != null)
+                    {
+                        var fileName = burgerModel.Image.FileName;
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", fileName);
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        burgerModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        burgerUpdate.ImageName = fileName;
+
+                    }
+
+
+
+
                     burgerUpdate.Name = burgerModel.Name;
                     burgerUpdate.Price = burgerModel.Price;
                     burgerUpdate.Description = burgerModel.Description;

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -141,7 +143,7 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                   await  _userManager.AddToRoleAsync(user, "Customer");
+                    //  await  _userManager.AddToRoleAsync(user, "Customer");
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -151,8 +153,20 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
+                    //string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                    //token = HttpUtility.UrlEncode(token);
+
+                    string href = $@"https://localhost:7167/Account/Validate?token={code}&email={user.Email}";
+
+                    Console.WriteLine(href);
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    string link = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+
+                    MailGonder(user.Email, user.Name + " " + user.Surname, link);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -196,5 +210,26 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<MVCGrup2User>)_userStore;
         }
+        private void MailGonder(string mail, string displayName, string link)
+        {
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Host = "smtp.gmail.com";
+            smtpClient.Port = 587;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.EnableSsl = true;
+            smtpClient.Credentials = new NetworkCredential("bburgeristan@gmail.com", "gecz mixa scnm uijc");
+
+            MailAddress from = new MailAddress("bburgeristan@gmail.com", "burgeristan");
+            MailAddress to = new MailAddress(mail, displayName);
+
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Burgeristana kayıt için teşekkürler";
+            message.Body = $@"<p style='color:red'>Bu mesaj kırmızı ile yazıldı.</p><p>Onay için tıklayınızı => {link}</p><img src='https://picsum.photos/200/300' />";
+            message.IsBodyHtml = true;
+
+            smtpClient.Send(message);
+
+        }
     }
 }
+

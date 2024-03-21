@@ -74,8 +74,24 @@ namespace MVCGrup2.Controllers
                   drinkModel.Price,
                   drinkModel.Description,
                   drinkModel.Active,
-                  drinkModel.Size
+                  drinkModel.Size,
+                  drinkModel.Image.FileName
                     );
+                if (drinkModel.Image != null)
+                {
+                    var fileName = drinkModel.Image.FileName;
+
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                    var streamMedia = new FileStream(location, FileMode.Create);
+
+                    drinkModel.Image.CopyTo(streamMedia);
+
+                    streamMedia.Close();
+
+                    drink.ImageName = fileName;
+
+                }
                 _context.Add(drink);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -84,29 +100,53 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: Drink/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] DrinkModel drinkModel)
         {
-            if (id == null)
+            if (TempData["id"] == null)
             {
                 return NotFound();
             }
 
-            var drink = await _context.Drinks.FindAsync(id);
-                  
-            if (drink == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
-            DrinkModel drinkModel = new DrinkModel
-            {
+                try
+                {
+                    Drink drinkUpdate = _context.Drinks.FirstOrDefault(d => d.Id == (int)TempData["id"]);
 
-                  Name = drink.Name,
-                  Price= drink.Price,
-                  Description= drink.Description,
-                  Active= drink.Active,
-                  Size= drink.Size
-           };
-            TempData["id"]=id;
+                    if (drinkModel.Image != null)
+                    {
+                        var fileName = drinkModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        drinkModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        drinkUpdate.ImageName = fileName;
+
+                    }
+
+
+
+                    drinkUpdate.Name = drinkModel.Name;
+                    drinkUpdate.Price = drinkModel.Price;
+                    drinkUpdate.Description = drinkModel.Description;
+                    drinkUpdate.Active = drinkModel.Active;
+                    drinkUpdate.Size = drinkModel.Size;
+                    _context.Update(drinkUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Index));
+            }
             return View(drinkModel);
         }
 

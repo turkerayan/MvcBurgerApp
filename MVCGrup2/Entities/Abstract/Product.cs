@@ -5,14 +5,14 @@ namespace MVCGrup2.Entities.Abstract
 {
     public abstract class Product : IProduct
     {
-        protected Product(string name, double price, string description, bool active, Size size)
+        protected Product(string name, double price, string description, bool active, Size size, string? imagename)
         {
             Name = name;
             Price = price;
             Description = description;
             Active = active;
             Size = size;
-
+            ImageName = imagename;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -21,5 +21,7 @@ namespace MVCGrup2.Entities.Abstract
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
+        public string? ImageName { get; set; }
+
     }
 }
