@@ -66,7 +66,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active")] BurgerModel burgerModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size")] BurgerModel burgerModel)
         {
             if (ModelState.IsValid)
             {

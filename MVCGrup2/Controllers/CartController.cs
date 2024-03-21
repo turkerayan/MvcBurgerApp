@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
     public class CartController : Controller
     {
         private readonly MVCGrup2Context _context;
+        private readonly UserManager<MVCGrup2User> _userManager;
 
-        public CartController(MVCGrup2Context context)
+
+
+        public CartController(MVCGrup2Context context, UserManager<MVCGrup2User> userManager)
         {
             _context = context;
+            _userManager = userManager; 
         }
 
         // GET: Cart
@@ -46,6 +52,15 @@ namespace MVCGrup2.Controllers
         // GET: Cart/Create
         public IActionResult Create()
         {
+            ViewBag.Burgers = _context.Burgers.ToList();
+            ViewBag.ExtraMats = _context.ExtraMats.ToList();
+            ViewBag.Drinks = _context.Drinks.ToList();
+
+
+
+
+
+
             return View();
         }
 
@@ -54,8 +69,29 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] Cart cart)
+        public async Task<IActionResult> Create([Bind("Id,burgerid,Burgers,ExtraMatId,ExtraMats,DrinkId,Drinks")] CartModel cartModel)
         {
+            var kullaniciId = _userManager.GetUserId(HttpContext.User);
+
+            Cart cart = new Cart()
+            {
+                burgerid = cartModel.BurgerId,
+
+                ExtraMatId = cartModel.ExtraMatId,
+
+                DrinkId = cartModel.DrinkId
+
+
+                
+                
+
+            };
+
+
+
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(cart);
@@ -86,7 +122,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] Cart cart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,burgerid,ExtraMatId,DrinkId")] Cart cart)
         {
             if (id != cart.Id)
             {

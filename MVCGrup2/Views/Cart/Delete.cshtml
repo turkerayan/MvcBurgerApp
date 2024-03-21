@@ -11,6 +11,24 @@
     <h4>Cart</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.burgerid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.burgerid)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExtraMatId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExtraMatId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DrinkId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DrinkId)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

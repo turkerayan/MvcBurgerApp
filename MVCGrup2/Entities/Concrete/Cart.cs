@@ -20,7 +20,7 @@ namespace MVCGrup2.Entities.Concrete
 
         public ICollection<Drink> Drinks { get; set; }
 
-        public int MVCGrup2UserId { get; set; }
+        //public int MVCGrup2UserId { get; set; }
 
         public MVCGrup2User User { get; set; }
 
