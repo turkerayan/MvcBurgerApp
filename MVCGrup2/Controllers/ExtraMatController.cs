@@ -39,7 +39,7 @@ namespace MVCGrup2.Controllers
 
             var extraMat = await _context.ExtraMats
                 .FirstOrDefaultAsync(m => m.Id == id); 
-            ExtraMatVİewModel extraMatModel = new ExtraMatVİewModel()
+            ExtraMatViewModel extraMatModel = new ExtraMatViewModel()
             {
                Name= extraMat.Name,
                Description= extraMat.Description,
@@ -68,7 +68,7 @@ namespace MVCGrup2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatVİewModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace MVCGrup2.Controllers
 
                     streamMedia.Close();
 
-                    extraMat.ImageName = fileName;
+                    extraMat.mageName = fileName;
 
                 }
                 _context.Add(extraMat);
@@ -98,7 +98,7 @@ namespace MVCGrup2.Controllers
         // GET: ExtraMat/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatVİewModel extraMatModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatViewModel extraMatModel)
         {
 
             if (TempData["id"] == null)
@@ -125,7 +125,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        ExtraMatUpdate.ImageName = fileName;
+                        ExtraMatUpdate.mageName = fileName;
 
                     }
 

@@ -21,35 +21,13 @@ namespace MVCGrup2.Entities.Concrete
 
         public string? MenuId { get; set; }
 
-        public ICollection<Menu>? Menus { get; set; } = new List<Menu>();
+        public ICollection<Menu>? Menus { get; set; }
 
         public string? ExtraMatId { get; set; }
 
-        public ICollection<ExtraMat>? ExtraMats { get; set; } = new List<ExtraMat>();
+        public ICollection<ExtraMat>? ExtraMats { get; set; }
 
-        public double Total
-        {
-            get { return Total; }
-            set
-            {
-                if (Menus != null)
-                {
-                    foreach (var item in Menus)
-                    {
-                        Total += item.MenuPrice;
-                    }
-                }
-
-                if (ExtraMats != null)
-                {
-                    foreach (var item in ExtraMats)
-                    {
-                        Total += item.Price;
-                    }
-                }
-                Total *= OrderCount;
-            }
-        }
+        public double Total { get; set; }
 
     }
 }

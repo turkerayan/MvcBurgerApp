@@ -12,7 +12,7 @@ namespace MVCGrup2.Entities.Abstract
             Description = description;
             Active = active;
             Size = size;
-            ImageName = imagename;
+            mageName = imagename;
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace MVCGrup2.Entities.Abstract
         public bool Active { get; set; }
         [EnumDataType(typeof(Size))]
         public Size Size { get; set; }
-        public string? ImageName { get; set; }
+        public string? mageName { get; set; }
 
     }
 }
