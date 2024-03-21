@@ -80,7 +80,7 @@ namespace MVCGrup2.Controllers
                 {
                     var fileName = extraMatModel.Image.FileName;
 
-                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", fileName);
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", fileName);
 
                     var streamMedia = new FileStream(location, FileMode.Create);
 
@@ -120,7 +120,7 @@ namespace MVCGrup2.Controllers
                     {
                         var fileName = extraMatModel.Image.FileName;
 
-                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures");
 
                         var streamMedia = new FileStream(location, FileMode.Create);
 
