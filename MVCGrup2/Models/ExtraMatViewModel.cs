@@ -18,7 +18,7 @@ namespace MVCGrup2.Models
 
         public Size Size { get; set; }
 
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
 
         //public string OrderId { get; set; }
 
