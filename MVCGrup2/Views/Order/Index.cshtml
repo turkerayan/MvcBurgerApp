@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVCGrup2.Entities.Concrete.Cart>
+﻿@model IEnumerable<MVCGrup2.Entities.Concrete.Order>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.burgerid)
+                @Html.DisplayNameFor(model => model.OrderDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExtraMatId)
+                @Html.DisplayNameFor(model => model.OrderCount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DrinkId)
+                @Html.DisplayNameFor(model => model.Total)
             </th>
             <th></th>
         </tr>
@@ -28,13 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.burgerid)
+                @Html.DisplayFor(modelItem => item.OrderDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExtraMatId)
+                @Html.DisplayFor(modelItem => item.OrderCount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DrinkId)
+                @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

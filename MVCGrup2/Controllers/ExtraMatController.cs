@@ -26,10 +26,12 @@ namespace MVCGrup2.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.ExtraMats.ToListAsync());
+
+
         }
 
         // GET: ExtraMat/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
            
             if (id == null)
@@ -38,16 +40,21 @@ namespace MVCGrup2.Controllers
             }
 
             var extraMat = await _context.ExtraMats
-                .FirstOrDefaultAsync(m => m.Id == id); 
-            ExtraMatModel extraMatModel = new ExtraMatModel()
+                .FirstOrDefaultAsync(m => m.Id == id);
+            ExtraMatViewModel extraMatModel = new ExtraMatViewModel()
             {
-               Name= extraMat.Name,
-               Description= extraMat.Description,
-               Active=extraMat.Active,
-               Price=extraMat.Price,    
-               Size =extraMat.Size, 
+                Id = extraMat.Id,
+                Name = extraMat.Name,
+                Description = extraMat.Description,
+                Active = extraMat.Active,
+                Price = extraMat.Price,
+                Size = extraMat.Size,
+                ImagePath = "\\Pictures\\" + extraMat.PictureName,
+                ExtraCount= extraMat.ExtraCount,
+        };
+            Order order = new Order();
 
-            }; 
+
             if (extraMat == null)
             {
                 return NotFound();
@@ -65,28 +72,38 @@ namespace MVCGrup2.Controllers
         // POST: ExtraMat/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,Active,Size,Image")] ExtraMatModel extraMatModel)
+        public async Task<IActionResult> Create([Bind("Id,ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
         {
+            //extraMatModel.ImagePath = " ";
             if (ModelState.IsValid)
             {
-                ExtraMat extraMat = new ExtraMat(extraMatModel.Name, extraMatModel.Price, extraMatModel.Description, extraMatModel.Active, extraMatModel.Size, extraMatModel.Image.FileName);
+                ExtraMat extraMat = new ExtraMat(
+                    extraMatModel.Id,
+                    extraMatModel.Name,
+                    extraMatModel.Price,  
+                    extraMatModel.Description,
+                    extraMatModel.Active,
+                    extraMatModel.Size, 
+                    extraMatModel.Image.FileName  );
+                    extraMat.ExtraCount = extraMatModel.ExtraCount;
+
+                
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;
 
-                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler", fileName);
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", fileName);
 
                     var streamMedia = new FileStream(location, FileMode.Create);
 
                     extraMatModel.Image.CopyTo(streamMedia);
-
+                    
                     streamMedia.Close();
 
-                    extraMat.ImageName = fileName;
+                    extraMat.PictureName = fileName;
 
                 }
                 _context.Add(extraMat);
@@ -97,28 +114,63 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: ExtraMat/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
+        // GET: Order/Edit/5
+       
+        public async Task<IActionResult> Edit(Guid? id)
         {
-
-            if (TempData["id"] == null)
+            if (id == null)
             {
                 return NotFound();
             }
+
+            var extramat = await _context.ExtraMats.FindAsync(id);
+            ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
+            extraMatViewModel.Name = extramat.Name;
+            extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.Price = extramat.Price;
+            extraMatViewModel.Active = extramat.Active;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
+            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
+
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
+            ViewBag.Extramat = "\\Pictures\\" + extramat.PictureName;
+
+            //FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+
+            //IFormFile file 
+
+            //extraMatViewModel.Image = fileStream.
+
+            //extraMatViewModel.Size = extramat.Size;
+            if (extraMatViewModel == null)
+            {
+                return NotFound();
+            }
+            return View(extraMatViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ExtraCount,Name,Price,Description,Active,Size,Image")] ExtraMatViewModel extraMatModel)
+        {
+
+            //if (TempData["id"] == null)
+            //{
+            //    return NotFound();
+            //}
 
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
+                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == id);
 
                     if (extraMatModel.Image != null)
                     {
                         var fileName = extraMatModel.Image.FileName;
 
-                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Resimler");
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures",fileName);
 
                         var streamMedia = new FileStream(location, FileMode.Create);
 
@@ -126,7 +178,7 @@ namespace MVCGrup2.Controllers
 
                         streamMedia.Close();
 
-                        ExtraMatUpdate.ImageName = fileName;
+                        ExtraMatUpdate.PictureName = fileName;
 
                     }
 
@@ -148,65 +200,39 @@ namespace MVCGrup2.Controllers
             return View(extraMatModel);
         }
 
-        // POST: ExtraMat/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,Active,Size")] ExtraMatModel extraMatModel)
-        {
-
-            if (TempData["id"] == null)
-            {
-                return NotFound();
-            }
-
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ExtraMat ExtraMatUpdate = _context.ExtraMats.FirstOrDefault(u => u.Id == (int)TempData["id"]);
-                    ExtraMatUpdate.Name = extraMatModel.Name;
-                    ExtraMatUpdate.Price = extraMatModel.Price;
-                    ExtraMatUpdate.Description = extraMatModel.Description;
-                    ExtraMatUpdate.Active = extraMatModel.Active;
-                    ExtraMatUpdate.Size = extraMatModel.Size;
-                    _context.Update(ExtraMatUpdate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(extraMatModel);
-        }
-
+     
 
         // GET: ExtraMat/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var extraMat = await _context.ExtraMats
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (extraMat == null)
+            var extramat = await _context.ExtraMats.FindAsync(id);
+            ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
+            extraMatViewModel.Name = extramat.Name;
+            extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.Price = extramat.Price;
+            extraMatViewModel.Active = extramat.Active;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
+            extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
+
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
+            ViewBag.Extramat = "\\Pictures\\" + extramat.PictureName;
+            if (extraMatViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(extraMat);
+            return View(extraMatViewModel);
         }
 
         // POST: ExtraMat/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var extraMat = await _context.ExtraMats.FindAsync(id);
             if (extraMat != null)
@@ -218,7 +244,7 @@ namespace MVCGrup2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExtraMatExists(int id)
+        private bool ExtraMatExists(Guid id)
         {
             return _context.ExtraMats.Any(e => e.Id == id);
         }

@@ -2,129 +2,94 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
-    public class CartController : Controller
+    public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
-        private readonly UserManager<MVCGrup2User> _userManager;
 
-
-
-        public CartController(MVCGrup2Context context, UserManager<MVCGrup2User> userManager)
+        public OrderController(MVCGrup2Context context)
         {
             _context = context;
-            _userManager = userManager; 
         }
 
-        // GET: Cart
+        // GET: Order
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carts.ToListAsync());
+            return View(await _context.Orders.ToListAsync());
         }
 
-        // GET: Cart/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Order/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cart = await _context.Carts
+            var order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(cart);
+            return View(order);
         }
 
-        // GET: Cart/Create
+        // GET: Order/Create
         public IActionResult Create()
         {
-            ViewBag.Burgers = _context.Burgers.ToList();
-            ViewBag.ExtraMats = _context.ExtraMats.ToList();
-            ViewBag.Drinks = _context.Drinks.ToList();
-
-
-
-
-
-
             return View();
         }
 
-        // POST: Cart/Create
+        // POST: Order/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,burgerid,Burgers,ExtraMatId,ExtraMats,DrinkId,Drinks")] CartModel cartModel)
+        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderCount,Total")] Order order)
         {
-            var kullaniciId = _userManager.GetUserId(HttpContext.User);
-
-            Cart cart = new Cart()
-            {
-                burgerid = cartModel.BurgerId,
-
-                ExtraMatId = cartModel.ExtraMatId,
-
-                DrinkId = cartModel.DrinkId
-
-
-                
-                
-
-            };
-
-
-
-
-
-
             if (ModelState.IsValid)
             {
-                _context.Add(cart);
+                order.Id = Guid.NewGuid();
+                _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cart);
+            return View(order);
         }
 
-        // GET: Cart/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Order/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cart = await _context.Carts.FindAsync(id);
-            if (cart == null)
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            return View(cart);
+            return View(order);
         }
 
-        // POST: Cart/Edit/5
+        // POST: Order/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,burgerid,ExtraMatId,DrinkId")] Cart cart)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,OrderCount,Total")] Order order)
         {
-            if (id != cart.Id)
+            if (id != order.Id)
             {
                 return NotFound();
             }
@@ -133,12 +98,12 @@ namespace MVCGrup2.Controllers
             {
                 try
                 {
-                    _context.Update(cart);
+                    _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CartExists(cart.Id))
+                    if (!OrderExists(order.Id))
                     {
                         return NotFound();
                     }
@@ -149,45 +114,45 @@ namespace MVCGrup2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cart);
+            return View(order);
         }
 
-        // GET: Cart/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Order/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cart = await _context.Carts
+            var order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(cart);
+            return View(order);
         }
 
-        // POST: Cart/Delete/5
+        // POST: Order/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var cart = await _context.Carts.FindAsync(id);
-            if (cart != null)
+            var order = await _context.Orders.FindAsync(id);
+            if (order != null)
             {
-                _context.Carts.Remove(cart);
+                _context.Orders.Remove(order);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CartExists(int id)
+        private bool OrderExists(Guid id)
         {
-            return _context.Carts.Any(e => e.Id == id);
+            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

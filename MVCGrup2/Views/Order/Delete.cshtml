@@ -1,4 +1,4 @@
-﻿@model MVCGrup2.Entities.Concrete.Cart
+﻿@model MVCGrup2.Entities.Concrete.Order
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,26 +8,26 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Cart</h4>
+    <h4>Order</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.burgerid)
+            @Html.DisplayNameFor(model => model.OrderDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.burgerid)
+            @Html.DisplayFor(model => model.OrderDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExtraMatId)
+            @Html.DisplayNameFor(model => model.OrderCount)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExtraMatId)
+            @Html.DisplayFor(model => model.OrderCount)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DrinkId)
+            @Html.DisplayNameFor(model => model.Total)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DrinkId)
+            @Html.DisplayFor(model => model.Total)
         </dd>
     </dl>
     
