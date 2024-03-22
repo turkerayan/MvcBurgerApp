@@ -12,11 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-<<<<<<<< HEAD:MVCGrup2/Migrations/20240322081314_mig1.Designer.cs
-    [Migration("20240322081314_mig1")]
-========
-    [Migration("20240322112856_mig1")]
->>>>>>>> main:MVCGrup2/Migrations/20240322112856_mig1.Designer.cs
+    [Migration("20240321193218_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -89,6 +85,9 @@ namespace MVCGrup2.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -206,9 +205,6 @@ namespace MVCGrup2.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("int");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");

@@ -4,7 +4,12 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MVCGrup2.Data;
+
 namespace MVCGrup2
+
 {
     public class Program
     {
@@ -60,3 +65,6 @@ namespace MVCGrup2
         }
     }
 }
+
+
+
