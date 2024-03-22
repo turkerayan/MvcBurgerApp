@@ -120,10 +120,11 @@ namespace MVCGrup2.Controllers
             MenuViewModel menuViewModel=new MenuViewModel();
             menuViewModel.Name = menu.Name;
             menuViewModel .Description = menu.Description;
+            menuViewModel.MenuCount = menu.MenuCount;
             menuViewModel.Price=menu.Price;
             menuViewModel.Active = menu.Active;
             menuViewModel.Size = menu.Size;
-            menuViewModel.MenuCount = menuViewModel.MenuCount;
+          
             menuViewModel.ImagePath="\\Pictures\\" + menu.PictureName;
 
             ViewBag.Menu= "\\Pictures\\" + menu.PictureName;
