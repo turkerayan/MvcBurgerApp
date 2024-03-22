@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCGrup2.Areas.Admin.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 
-namespace MVCGrup2.Controllers
+namespace MVCGrup2.Areas.Admin.Controllers
 {
-    //[Authorize(Roles="Admin")]
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ExtraMatController : Controller
     {
         private readonly MVCGrup2Context _context;
@@ -33,7 +34,7 @@ namespace MVCGrup2.Controllers
         // GET: ExtraMat/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-           
+
             if (id == null)
             {
                 return NotFound();
@@ -50,8 +51,8 @@ namespace MVCGrup2.Controllers
                 Price = extraMat.Price,
                 Size = extraMat.Size,
                 ImagePath = "\\Pictures\\" + extraMat.PictureName,
-                ExtraCount= extraMat.ExtraCount,
-        };
+                ExtraCount = extraMat.ExtraCount,
+            };
             Order order = new Order();
 
 
@@ -83,14 +84,14 @@ namespace MVCGrup2.Controllers
                 ExtraMat extraMat = new ExtraMat(
                     extraMatModel.Id,
                     extraMatModel.Name,
-                    extraMatModel.Price,  
+                    extraMatModel.Price,
                     extraMatModel.Description,
                     extraMatModel.Active,
-                    extraMatModel.Size, 
-                    extraMatModel.Image.FileName  );
-                    extraMat.ExtraCount = extraMatModel.ExtraCount;
+                    extraMatModel.Size,
+                    extraMatModel.Image.FileName);
+                extraMat.ExtraCount = extraMatModel.ExtraCount;
 
-                
+
                 if (extraMatModel.Image != null)
                 {
                     var fileName = extraMatModel.Image.FileName;
@@ -100,7 +101,7 @@ namespace MVCGrup2.Controllers
                     var streamMedia = new FileStream(location, FileMode.Create);
 
                     extraMatModel.Image.CopyTo(streamMedia);
-                    
+
                     streamMedia.Close();
 
                     extraMat.PictureName = fileName;
@@ -115,7 +116,7 @@ namespace MVCGrup2.Controllers
 
         // GET: ExtraMat/Edit/5
         // GET: Order/Edit/5
-       
+
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -170,7 +171,7 @@ namespace MVCGrup2.Controllers
                     {
                         var fileName = extraMatModel.Image.FileName;
 
-                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures",fileName);
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", fileName);
 
                         var streamMedia = new FileStream(location, FileMode.Create);
 
@@ -200,7 +201,7 @@ namespace MVCGrup2.Controllers
             return View(extraMatModel);
         }
 
-     
+
 
         // GET: ExtraMat/Delete/5
         public async Task<IActionResult> Delete(Guid? id)

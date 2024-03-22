@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_AdminLayout";
+
+    if(User.IsInRole("Admin") && !Context.Request.Path.StartsWithSegments("/Admin"))
+    {
+        Context.Response.Redirect("/Admin/Home/Index");
+    }
+    else if (User.IsInRole("Customer") && Context.Request.Path.StartsWithSegments("/Admin"))
+    {
+        Context.Response.Redirect("/Home/Index");
+
+    }
+
+}

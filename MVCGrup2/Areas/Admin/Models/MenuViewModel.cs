@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using MVCGrup2.Entities.Abstract;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MVCGrup2.Models
+
+namespace MVCGrup2.Areas.Admin.Models
 {
-    public class ExtraMatViewModel
+    public class MenuViewModel
     {
         public Guid Id { get; set; }
 
@@ -21,25 +21,22 @@ namespace MVCGrup2.Models
 
         public Size Size { get; set; }
 
+        //public int ExtraMatId { get; set; }
+
+        //public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
+
+        //public Order Order { get; set; }
+
         public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
-        //public string OrderId { get; set; }
+        public int MenuCount { get; set; }
 
-        //public ICollection<Order> Orders { get; set; }
+        //public string? OrderId { get; set; }
 
-        //public string MenuId { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
-        //public ICollection<Menu> Menus { get; set; }
-
-        private int _extraCount { get; set; }
-
-        public int ExtraCount
-        {
-            get { return _extraCount; }
-            set { _extraCount = (value < 0) ? 0 : value; }
-        }
         private double _price;
 
         public double Price
@@ -61,8 +58,9 @@ namespace MVCGrup2.Models
                         _price *= 1.3d;
                         break;
                 }
-                _price = _price * ExtraCount;
+                _price = _price * MenuCount;
             }
         }
     }
 }
+

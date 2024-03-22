@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCGrup2.Areas.Admin.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 
-namespace MVCGrup2.Controllers
+namespace MVCGrup2.Areas.Admin.Controllers
 {
-    //[Authorize(Roles="Admin")]
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class MenuController : Controller
     {
         private readonly MVCGrup2Context _context;
