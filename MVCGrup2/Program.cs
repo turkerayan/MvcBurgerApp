@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Data.SqlClient;
@@ -23,7 +23,7 @@ namespace MVCGrup2
             builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
                          .AddRoles<IdentityRole>()
                          .AddEntityFrameworkStores<MVCGrup2Context>();
-            
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -49,7 +49,7 @@ namespace MVCGrup2
 
             app.MapRazorPages();
 
-
+#pragma warning disable ASP0014
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -60,7 +60,27 @@ namespace MVCGrup2
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MVCGrup2User>>();
 
+                // admin rolü yoksa oluşturur
+                roleManager.CreateAsync(new IdentityRole("admin"));
+
+                var adminUser = new MVCGrup2User()
+                {
+                    UserName = "admin@test.com",
+                    Email = "admin@test.com",
+                    EmailConfirmed = true
+                };
+
+                // kullanıcı yoksa belirtilen parola ile oluşturur
+                 userManager.CreateAsync(adminUser, "Admin1.");
+
+                // belirtilen kullanıcıya "admin" rolünü ata
+                 userManager.AddToRoleAsync(adminUser, "admin");
+            }
             app.Run();
         }
     }
