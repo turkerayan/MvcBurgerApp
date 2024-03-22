@@ -4,6 +4,7 @@ using MVCGrup2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    partial class MVCGrup2ContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:MVCGrup2/Migrations/20240322081314_mig1.Designer.cs
+    [Migration("20240322081314_mig1")]
+========
+    [Migration("20240322112856_mig1")]
+>>>>>>>> main:MVCGrup2/Migrations/20240322112856_mig1.Designer.cs
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

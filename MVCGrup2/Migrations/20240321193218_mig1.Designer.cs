@@ -4,6 +4,7 @@ using MVCGrup2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    partial class MVCGrup2ContextModelSnapshot : ModelSnapshot
+    [Migration("20240321193218_mig1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +85,9 @@ namespace MVCGrup2.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -199,9 +205,6 @@ namespace MVCGrup2.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("int");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
