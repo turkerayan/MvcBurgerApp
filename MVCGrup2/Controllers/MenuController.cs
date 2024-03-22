@@ -42,12 +42,12 @@ namespace MVCGrup2.Controllers
             {
                 Id = menu.Id,
                 Name = menu.Name,
+                MenuCount = menu.MenuCount,
                 Description = menu.Description,
                 Active = menu.Active,
                 Price = menu.Price,
                 Size = menu.Size,
                 ImagePath="\\Pictures\\"+menu.PictureName,
-                MenuCount = menu.MenuCount,
             };
             Order order=new Order();
 
@@ -196,10 +196,10 @@ namespace MVCGrup2.Controllers
             var menu = await _context.Menus.FindAsync(id);
             MenuViewModel menuViewModel= new MenuViewModel();
             menuViewModel.Name = menu.Name;
+            menuViewModel.MenuCount = menu.MenuCount;
             menuViewModel.Price=menu.Price;
             menuViewModel.Description=menu.Description;
             menuViewModel.Active = menu.Active;
-            menuViewModel.MenuCount = menu.MenuCount;
             menuViewModel.ImagePath = "\\Pictures\\" + menu.PictureName;
 
 
