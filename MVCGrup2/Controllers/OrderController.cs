@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,14 @@ namespace MVCGrup2.Controllers
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
+        private readonly IMapper _mapper;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public OrderController(MVCGrup2Context context)
+        public OrderController(MVCGrup2Context context,IMapper mapper,IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _mapper = mapper;
+            _httpClientFactory = httpClientFactory;
         }
 
         // GET: Order

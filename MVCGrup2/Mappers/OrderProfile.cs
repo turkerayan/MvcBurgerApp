@@ -10,12 +10,11 @@ namespace MVCGrup2.Mappers
         {
             CreateMap<Order, OrderViewModel>().ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id))
                                              .ForMember(vm => vm.OrderDate, opt => opt.MapFrom(e => e.OrderDate))
-                                             .ForMember(vm => vm.OrderStatus, opt => opt.MapFrom(e => e.Id))
-                                             .ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id))
-                                             .ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id))
-                                             .ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id))
-                                             .ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id))
-                                             .ForMember(vm => vm.Id, opt => opt.MapFrom(e => e.Id));
+                                             .ForMember(vm => vm.OrderStatus, opt => opt.MapFrom(e => e.OrderStatus))
+                                             .ForMember(vm => vm.OrderCount, opt => opt.MapFrom(e => e.OrderCount))
+                                             .ForMember(vm => vm.Total, opt => opt.MapFrom(e => e.Total))
+                                             .ReverseMap();
+                                             
         }
 
     }
