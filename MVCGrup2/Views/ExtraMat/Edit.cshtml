@@ -49,8 +49,8 @@
             <div class="form-group">
                 <img src="@Model.ImagePath" width="250px" />
                 <label asp-for="Image" class="control-label">Image</label>
-                <input type="file" asp-for="Image" class="form-control" />ImageLoad
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <input type="file" asp-for="Image" class="form-control" data-val="false"/>
+                <span class="text-danger"></span>@* Validation kaldırılmıştır.Ama sayfada denenmedi!!! *@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

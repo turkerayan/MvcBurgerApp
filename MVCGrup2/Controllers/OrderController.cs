@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
@@ -44,8 +45,11 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: Order/Create
-        public IActionResult Create()
+        public async  Task<IActionResult> Create()
         {
+            ViewBag.Menus = await _context.Menus.ToListAsync();
+            ViewBag.Extras= await _context.ExtraMats.ToListAsync();
+
             return View();
         }
 
@@ -54,8 +58,15 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderCount,Total")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
         {
+            Guid guid = new Guid();
+            orderVM.Id = guid;
+            
+
+
+            Order order = new();
+
             if (ModelState.IsValid)
             {
                 order.Id = Guid.NewGuid();
@@ -87,7 +98,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,OrderCount,Total")] Order order)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] Order order)
         {
             if (id != order.Id)
             {

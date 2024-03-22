@@ -29,9 +29,29 @@ namespace MVCGrup2.Entities.Concrete
 
         public ICollection<ExtraMat> ExtraMats { get; set; }
 
+        public MVCGrup2User User { get; set; }
+
         public double Total { get; set; }
 
-        public MVCGrup2User User { get; set; }
+        public double TotalCalc()
+        {
+
+            foreach (var item in Menus)
+            {
+                Total += item.Price;
+            }
+
+            foreach (var item in ExtraMats)
+            {
+                Total += item.Price;
+            }
+
+            Total = Total * OrderCount;
+
+            return Total; 
+        }
+
+
 
     }
 }
