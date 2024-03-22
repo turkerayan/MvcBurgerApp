@@ -1,4 +1,4 @@
-﻿@model MVCGrup2.Entities.Concrete.Menu
+﻿@model MenuViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -47,11 +47,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Size)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PictureName)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PictureName)
+        </dd> *@
+        <dd class="col-sm-10">
+            <img alt="Resim Yok" height="60px" width="60px" src="@Model.ImagePath" />
         </dd>
     </dl>
     

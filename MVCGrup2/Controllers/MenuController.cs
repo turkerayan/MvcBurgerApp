@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
+    //[Authorize(Roles="Admin")]
     public class MenuController : Controller
     {
         private readonly MVCGrup2Context _context;
@@ -36,12 +38,25 @@ namespace MVCGrup2.Controllers
 
             var menu = await _context.Menus
                 .FirstOrDefaultAsync(m => m.Id == id);
+            MenuViewModel menuViewModel = new MenuViewModel()
+            {
+                Id = menu.Id,
+                Name = menu.Name,
+                Description = menu.Description,
+                Active = menu.Active,
+                Price = menu.Price,
+                Size = menu.Size,
+                ImagePath="\\Pictures\\"+menu.PictureName,
+                MenuCount = menu.MenuCount,
+            };
+            Order order=new Order();
+
             if (menu == null)
             {
                 return NotFound();
             }
-
-            return View(menu);
+            ViewBag.EditedItemId = id; // ID'yi ViewBag ile taşı
+            return View(menuViewModel);
         }
 
         // GET: Menu/Create
@@ -57,27 +72,41 @@ namespace MVCGrup2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
         {
-
-            Menu menu = new Menu(
-                menuViewModel.Id,   
+            if (ModelState.IsValid)
+            {
+                Menu menu = new Menu(
+                menuViewModel.Id,
                 menuViewModel.Name,
                 menuViewModel.Price,
                 menuViewModel.Description,
                 menuViewModel.Active,
                 menuViewModel.Size,
-                menuViewModel.Image.FileName
-                );
+                menuViewModel.Image.FileName);
             menu.MenuCount = menuViewModel.MenuCount;
             menu.Price = menuViewModel.Price;
-            if (ModelState.IsValid)
+
+            if (menuViewModel.Image != null)
             {
-                menu.Id = Guid.NewGuid();
-                _context.Add(menu);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var fileName = menuViewModel.Image.FileName;
+
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", fileName);
+
+                var streamMedia = new FileStream(location, FileMode.Create);
+
+                menuViewModel.Image.CopyTo(streamMedia);
+
+                streamMedia.Close();
+
+                menu.PictureName = fileName;
+
             }
-            return View(menu);
+            _context.Add(menu);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
+
 
         // GET: Menu/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -88,11 +117,22 @@ namespace MVCGrup2.Controllers
             }
 
             var menu = await _context.Menus.FindAsync(id);
-            if (menu == null)
+            MenuViewModel menuViewModel=new MenuViewModel();
+            menuViewModel.Name = menu.Name;
+            menuViewModel .Description = menu.Description;
+            menuViewModel.Price=menu.Price;
+            menuViewModel.Active = menu.Active;
+            menuViewModel.Size = menu.Size;
+            menuViewModel.MenuCount = menuViewModel.MenuCount;
+            menuViewModel.ImagePath="\\Pictures\\" + menu.PictureName;
+
+            ViewBag.Menu= "\\Pictures\\" + menu.PictureName;
+
+            if (menuViewModel == null)
             {
                 return NotFound();
             }
-            return View(menu);
+            return View(menuViewModel);
         }
 
         // POST: Menu/Edit/5
@@ -100,34 +140,48 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("MenuCount,Id,Name,Price,Description,Active,Size,PictureName")] Menu menu)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,MenuCount,Name,Price,Description,Active,Size,PictureName")] MenuViewModel menuModel)
         {
-            if (id != menu.Id)
-            {
-                return NotFound();
-            }
+            //if (id != menu.Id)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(menu);
+                    Menu MenuUpdate=_context.Menus.FirstOrDefault(x => x.Id == id);
+                    if (menuModel.Image != null)
+                    {
+                        var fileName = menuModel.Image.FileName;
+
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", fileName);
+
+                        var streamMedia = new FileStream(location, FileMode.Create);
+
+                        menuModel.Image.CopyTo(streamMedia);
+
+                        streamMedia.Close();
+
+                        MenuUpdate.PictureName = fileName;
+
+                    }
+                    MenuUpdate.Name= menuModel.Name;
+                    MenuUpdate.Price = menuModel.Price;
+                    MenuUpdate.Description = menuModel.Description;
+                    MenuUpdate.Active = menuModel.Active;
+                    MenuUpdate.Size = menuModel.Size;
+                    _context.Update(MenuUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MenuExists(menu.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(menu);
+            return View(menuModel);
         }
 
         // GET: Menu/Delete/5
@@ -138,14 +192,23 @@ namespace MVCGrup2.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            var menu = await _context.Menus.FindAsync(id);
+            MenuViewModel menuViewModel= new MenuViewModel();
+            menuViewModel.Name = menu.Name;
+            menuViewModel.Price=menu.Price;
+            menuViewModel.Description=menu.Description;
+            menuViewModel.Active = menu.Active;
+            menuViewModel.MenuCount = menu.MenuCount;
+            menuViewModel.ImagePath = "\\Pictures\\" + menu.PictureName;
+
+
+            ViewBag.Menu = "\\Pictures\\" + menu.PictureName;
+
+            if (menuViewModel == null)
             {
                 return NotFound();
             }
-
-            return View(menu);
+            return View(menuViewModel);
         }
 
         // POST: Menu/Delete/5
