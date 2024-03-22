@@ -15,22 +15,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Name" class="form-control" autocomplete="name" aria-required="true" placeholder="Name" />
-                <label asp-for="Input.Name">Name</label>
+                <label asp-for="Input.Name">Name <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Surname" class="form-control" autocomplete="surname" aria-required="true" placeholder="Surname" />
-                <label asp-for="Input.Surname">Surname</label>
+                <label asp-for="Input.Surname">Surname <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
+                <label asp-for="Input.Email">Email <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Address" class="form-control" autocomplete="Address" aria-required="true" placeholder="Address" />
-                <label asp-for="Input.Email">Address</label>
+                <label asp-for="Input.Address">Address</label>
                 <span asp-validation-for="Input.Address" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
@@ -38,9 +38,10 @@
                 <label asp-for="Input.Phone">Phone</label>
                 <span asp-validation-for="Input.Phone" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <select asp-for="Input.UserGender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()" aria-required="true" placeholder="Gender" autocomplete="Gender">
-                    <option selected="selected" value="">Please select</option>
+                    <option selected="selected" value="">Please select your gender <span class="text-danger">*</span></option>
                 </select>
                 <span asp-validation-for="Input.UserGender" class="text-danger"></span>
             </div>
@@ -48,19 +49,19 @@
 
             <div class="form-floating mb-3">
                 <input asp-for="Input.Birthday" class="form-control" autocomplete="Birthday" aria-required="true" placeholder="Birthday" type="date"/>
-                <label asp-for="Input.Birthday">Birthday</label>
+                <label asp-for="Input.Birthday">Birthday <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.Birthday" class="text-danger"></span>
             </div>
 
 
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
+                <label asp-for="Input.Password">Password <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <label asp-for="Input.ConfirmPassword">Confirm Password <span class="text-danger">*</span></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>

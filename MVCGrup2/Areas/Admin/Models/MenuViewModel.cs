@@ -4,7 +4,7 @@ using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace MVCGrup2.Models
+namespace MVCGrup2.Areas.Admin.Models
 {
     public class MenuViewModel
     {
@@ -58,6 +58,6 @@ namespace MVCGrup2.Models
                 _price = _price * MenuCount;
             }
         }
-        }
     }
+}
 

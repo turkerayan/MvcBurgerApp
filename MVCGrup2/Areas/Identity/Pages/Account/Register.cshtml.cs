@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Enums;
 
 namespace MVCGrup2.Areas.Identity.Pages.Account
 {
@@ -134,8 +135,12 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.Address = Input.Address;
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
+                user.UserGender = (Gender)Input.UserGender;
+                user.Birthday = Input.Birthday;
+                user.PhoneNumber = Input.Phone;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

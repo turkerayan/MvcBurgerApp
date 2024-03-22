@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using MVCGrup2.Entities.Abstract;
-using MVCGrup2.Entities.Concrete;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MVCGrup2.Models
+namespace MVCGrup2.Areas.Admin.Models
 {
     public class ExtraMatViewModel
     {
@@ -38,7 +35,7 @@ namespace MVCGrup2.Models
         public int ExtraCount
         {
             get { return _extraCount; }
-            set { _extraCount = (value < 0) ? 0 : value; }
+            set { _extraCount = value < 0 ? 0 : value; }
         }
         private double _price;
 

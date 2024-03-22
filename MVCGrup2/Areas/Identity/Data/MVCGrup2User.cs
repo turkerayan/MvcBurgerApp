@@ -23,10 +23,9 @@ public class MVCGrup2User : IdentityUser
     [Required]
     public string? Address { get; set; }
 
-    public string? Phone { get; set; }
-
+    [Required]
     public Gender UserGender { get; set; }
-
+    [Required]
     public DateOnly Birthday { get; set; }
 
     public ICollection<Order> Orders { get; set; }
