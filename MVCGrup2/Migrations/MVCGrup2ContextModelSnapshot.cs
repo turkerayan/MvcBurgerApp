@@ -197,6 +197,9 @@ namespace MVCGrup2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("MVCGrup2User2")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("OrderCount")
                         .HasColumnType("int");
 

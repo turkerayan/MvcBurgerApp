@@ -16,13 +16,13 @@ namespace MVCGrup2.Controllers
     {
         private readonly MVCGrup2Context _context;
         private readonly IMapper _mapper;
-        private readonly IHttpClientFactory _httpClientFactory;
 
-        public OrderController(MVCGrup2Context context,IMapper mapper,IHttpClientFactory httpClientFactory)
+
+        public OrderController(MVCGrup2Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _httpClientFactory = httpClientFactory;
+
         }
 
         // GET: Order
@@ -50,10 +50,10 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: Order/Create
-        public async  Task<IActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             ViewBag.Menus = await _context.Menus.ToListAsync();
-            ViewBag.Extras= await _context.ExtraMats.ToListAsync();
+            ViewBag.Extras = await _context.ExtraMats.ToListAsync();
 
             return View();
         }
@@ -63,14 +63,28 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
+        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
         {
+            Order order = new Order();
             Guid guid = new Guid();
             orderVM.Id = guid;
+
+            var extraMat = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == id);
             
+            if (extraMat != null)
+                orderVM.ExtraMats.Add(extraMat);
+
+            var menus = await _context.Menus.FindAsync(id);
+            if (menus != null)
+                orderVM.Menus.Add(menus);
 
 
-            Order order = new();
+            orderVM.ExtraMats.Add(extraMat);
+
+            if (orderVM.ExtraMats != null)
+                order.ExtraMats = orderVM.ExtraMats;
+            if (orderVM.Menus != null)
+                order.Menus = orderVM.Menus;
 
             if (ModelState.IsValid)
             {

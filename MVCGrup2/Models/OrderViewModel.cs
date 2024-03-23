@@ -18,11 +18,11 @@ namespace MVCGrup2.Models
         //public string? MenuId { get; set; }
         [ValidateNever]
 
-        public ICollection<Menu> Menus { get; set; }
+        public ICollection<Menu> Menus { get; set; } = new List<Menu>();
 
         //public string? ExtraMatId { get; set; }
         [ValidateNever]
-        public ICollection<ExtraMat> ExtraMats { get; set; }
+        public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
 
         public MVCGrup2User User { get; set; }
 
