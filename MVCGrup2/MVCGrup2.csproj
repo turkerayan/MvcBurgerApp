@@ -20,8 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Customer\Data\" />
     <Folder Include="Areas\Identity\Pages\Account\resim\" />
     <Folder Include="Areas\Identity\Pages\Resimler\" />
+    <Folder Include="Areas\NewFolder1\" />
+    <Folder Include="Areas\NewFolder2\" />
+    <Folder Include="Areas\NewFolder\" />
     <Folder Include="wwwroot\Pictures\" />
   </ItemGroup>
 

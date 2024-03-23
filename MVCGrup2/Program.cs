@@ -6,9 +6,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MVCGrup2.Areas.Admin.Data;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 using System.Reflection;
 namespace MVCGrup2
 
