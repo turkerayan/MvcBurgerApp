@@ -38,8 +38,7 @@ namespace MVCGrup2.Areas.Admin.Data
                         Surname = "Admin",
                         UserName = "admin@burgeristan.com",
                         Email = "admin@burgeristan.com",
-                        EmailConfirmed = true,
-                        Address="Admin"
+                        EmailConfirmed = true
                     };
                     var result = await _userManager.CreateAsync(adminUser, "Admin1$");
                     if (result.Succeeded)

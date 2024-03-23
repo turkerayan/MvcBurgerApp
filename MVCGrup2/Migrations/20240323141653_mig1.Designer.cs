@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-<<<<<<<< HEAD:MVCGrup2/Migrations/20240323125001_mig1.Designer.cs
-    [Migration("20240323125001_mig1")]
+    [Migration("20240323141653_mig1")]
     partial class mig1
-========
-    [Migration("20240323112646_m1")]
-    partial class m1
->>>>>>>> main:MVCGrup2/Migrations/20240323112646_m1.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +191,9 @@ namespace MVCGrup2.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MVCGrup2User2")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("OrderCount")
