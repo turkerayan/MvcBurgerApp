@@ -1,3 +1,4 @@
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -6,10 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MVCGrup2.Areas.Admin.Data;
 using MVCGrup2.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using MVCGrup2.Data;
-
 namespace MVCGrup2
 
 {
@@ -18,16 +15,17 @@ namespace MVCGrup2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("burak") ?? throw new InvalidOperationException("Connection string 'MVCGrup2ContextConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("enes") ?? throw new InvalidOperationException("Connection string 'MVCGrup2ContextConnection' not found.");
 
             builder.Services.AddDbContext<MVCGrup2Context>(options => options.UseSqlServer(connectionString));
             builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
                          .AddRoles<IdentityRole>()
+
                          .AddEntityFrameworkStores<MVCGrup2Context>();
             builder.Services.AddScoped<Seed>();
             
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             var app = builder.Build();
             using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -53,8 +51,10 @@ namespace MVCGrup2
             app.UseAuthorization();
 
             app.MapRazorPages();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderViewModel>());
+            app.MapRazorPages();
 
-
+#pragma warning disable ASP0014
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -65,7 +65,7 @@ namespace MVCGrup2
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
+          
             app.Run();
         }
     }

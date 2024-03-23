@@ -19,6 +19,11 @@
                 <span asp-validation-for="OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="OrderStatus" class="control-label"></label>
+                <select asp-for="OrderStatus" class="form-control"></select>
+                <span asp-validation-for="OrderStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="OrderCount" class="control-label"></label>
                 <input asp-for="OrderCount" class="form-control" />
                 <span asp-validation-for="OrderCount" class="text-danger"></span>

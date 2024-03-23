@@ -45,10 +45,6 @@ namespace MVCGrup2.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateOnly>("Birthday")
                         .HasColumnType("date");
 
@@ -192,6 +188,9 @@ namespace MVCGrup2.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MVCGrup2User2")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("OrderCount")

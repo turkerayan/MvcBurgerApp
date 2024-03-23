@@ -1,4 +1,5 @@
-﻿@model MVCGrup2.Entities.Concrete.Order
+﻿@using MVCGrup2.Entities.Concrete
+@model OrderViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,34 +11,65 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderCount" class="control-label"></label>
-                <input asp-for="OrderCount" class="form-control" />
-                <span asp-validation-for="OrderCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+       
+        @foreach (ExtraMat item in ViewBag.Extras)
+        {
+            <form asp-action="Create">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-group">
+                            <label asp-for="OrderCount" class="control-label"></label>
+                            <input id="OrderCount_@item.Id" name="OrderCount" class="form-control" onchange="updateTotal(@item.Price, @item.Id)" />
+                            <span asp-validation-for="OrderCount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Price</label>
+                            <span id="Price_@item.Id">@item.Price</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">0</span>
+                        </div>
+                        <input asp asp-route-id="@item.Id" type="submit" class="btn btn-primary" value="Add to Basket">
+                    </div>
+                </div>
+            </form>
+        }
+
+
+
+        <div class="form-group">
+           
+        </div>
     </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script>
+    // Define your JavaScript function
+    function updateTotal(price, itemId) {
+        var orderCountInput = document.getElementById("OrderCount_" + itemId);
+        var totalSpan = document.getElementById("Total_" + itemId);
 
+        var orderCount = parseInt(orderCountInput.value);
+        var totalPrice = orderCount * price;
+
+        totalSpan.textContent = totalPrice;
+    }
+
+    
+</script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        
+
+
+    }
 }
