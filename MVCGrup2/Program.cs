@@ -14,7 +14,7 @@ namespace MVCGrup2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("MVCGrup2ContextConnection") ?? throw new InvalidOperationException("Connection string 'MVCGrup2ContextConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("enes") ?? throw new InvalidOperationException("Connection string 'MVCGrup2ContextConnection' not found.");
 
             builder.Services.AddDbContext<MVCGrup2Context>(options => options.UseSqlServer(connectionString));
 
