@@ -28,7 +28,10 @@ namespace MVCGrup2.Areas.Admin.Data
                 {
                     await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 }
-
+                if (!await _roleManager.RoleExistsAsync("Customer"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                }
                 var adminUser = await _userManager.FindByNameAsync("admin@example.com");
                 if (adminUser == null)
                 {
