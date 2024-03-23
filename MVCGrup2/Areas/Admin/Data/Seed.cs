@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
+using System.Net;
 
 namespace MVCGrup2.Areas.Admin.Data
 {
@@ -37,7 +38,8 @@ namespace MVCGrup2.Areas.Admin.Data
                         Surname = "Admin",
                         UserName = "admin@burgeristan.com",
                         Email = "admin@burgeristan.com",
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        Address="Admin"
                     };
                     var result = await _userManager.CreateAsync(adminUser, "Admin1$");
                     if (result.Succeeded)
