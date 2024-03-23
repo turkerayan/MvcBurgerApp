@@ -1,11 +1,12 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
-using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
-using System.Reflection;
 namespace MVCGrup2
+
 {
     public class Program
     {
@@ -45,12 +46,24 @@ namespace MVCGrup2
 
             app.MapRazorPages();
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderViewModel>());
+            app.MapRazorPages();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+#pragma warning disable ASP0014
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "AdminAreaRoute",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+          
             app.Run();
         }
     }
 }
+
+
+

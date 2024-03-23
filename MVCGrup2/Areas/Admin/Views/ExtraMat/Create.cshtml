@@ -1,24 +1,24 @@
-﻿@using MVCGrup2.Enums
+﻿@using MVCGrup2.Areas.Admin.Models
+@using MVCGrup2.Enums
 @model ExtraMatViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
 <h4>ExtraMat</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ExtraCount" class="control-label"></label>
                 <input asp-for="ExtraCount" class="form-control" />
                 <span asp-validation-for="ExtraCount" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -47,13 +47,12 @@
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <img src="@Model.ImagePath" width="250px" />
                 <label asp-for="Image" class="control-label">Image</label>
-                <input type="file" asp-for="Image" class="form-control" data-val="false"/>
-                <span class="text-danger"></span>@* Validation kaldırılmıştır.Ama sayfada denenmedi!!! *@
+                <input type="file" asp-for="Image" class="form-control" />ImageLoad
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
