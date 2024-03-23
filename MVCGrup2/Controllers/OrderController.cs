@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Models;
 
 namespace MVCGrup2.Controllers
 {
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
+        private readonly IMapper _mapper;
 
-        public OrderController(MVCGrup2Context context)
+
+        public OrderController(MVCGrup2Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         // GET: Order
@@ -44,8 +50,11 @@ namespace MVCGrup2.Controllers
         }
 
         // GET: Order/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Menus = await _context.Menus.ToListAsync();
+            ViewBag.Extras = await _context.ExtraMats.ToListAsync();
+
             return View();
         }
 
@@ -54,8 +63,29 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderCount,Total")] Order order)
+        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
         {
+            Order order = new Order();
+            Guid guid = new Guid();
+            orderVM.Id = guid;
+
+            var extraMat = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == id);
+            
+            if (extraMat != null)
+                orderVM.ExtraMats.Add(extraMat);
+
+            var menus = await _context.Menus.FindAsync(id);
+            if (menus != null)
+                orderVM.Menus.Add(menus);
+
+
+            orderVM.ExtraMats.Add(extraMat);
+
+            if (orderVM.ExtraMats != null)
+                order.ExtraMats = orderVM.ExtraMats;
+            if (orderVM.Menus != null)
+                order.Menus = orderVM.Menus;
+
             if (ModelState.IsValid)
             {
                 order.Id = Guid.NewGuid();
@@ -87,7 +117,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,OrderCount,Total")] Order order)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] Order order)
         {
             if (id != order.Id)
             {

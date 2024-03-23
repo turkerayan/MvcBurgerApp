@@ -18,7 +18,7 @@ namespace MVCGrup2.Entities.Concrete
         //[EnumDataType(typeof(Size))]
         //public Size Size { get; set; }
         //public string? PictureName { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
         public int ExtraCount { get; set; }
 
