@@ -20,8 +20,7 @@ public class MVCGrup2User : IdentityUser
 
     [NotMapped]
     public string FullName => Name + " " + Surname;
-    [Required]
-    public string? Address { get; set; }
+
 
     [Required]
     public Gender UserGender { get; set; }

@@ -77,7 +77,7 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
         {
             public string Name { get; set; }
             public string Surname { get; set; }
-            public string? Address { get; set; }
+
 
             public string? Phone { get; set; }
 
@@ -135,7 +135,7 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.Address = Input.Address;
+               
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
                 user.UserGender = (Gender)Input.UserGender;
