@@ -12,11 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-<<<<<<<< HEAD:MVCGrup2/Migrations/20240323114956_mig1.Designer.cs
-    [Migration("20240323114956_mig1")]
-========
-    [Migration("20240322205444_mig1")]
->>>>>>>> main:MVCGrup2/Migrations/20240322205444_mig1.Designer.cs
+    [Migration("20240323141653_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -51,10 +47,6 @@ namespace MVCGrup2.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("Birthday")
                         .HasColumnType("date");

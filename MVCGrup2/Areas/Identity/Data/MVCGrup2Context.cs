@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Roles;
@@ -10,6 +11,7 @@ namespace MVCGrup2.Data;
 
 public class MVCGrup2Context : IdentityDbContext<MVCGrup2User>
 {
+    private readonly IServiceProvider _serviceProvider;
     public MVCGrup2Context(DbContextOptions<MVCGrup2Context> options)
         : base(options)
     {
@@ -19,9 +21,7 @@ public class MVCGrup2Context : IdentityDbContext<MVCGrup2User>
     {
        
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
+
     }
 
     public DbSet<ExtraMat> ExtraMats { get; set; }
