@@ -1,6 +1,5 @@
-﻿@using MVCGrup2.Entities.Concrete
-@model OrderViewModel
-
+﻿@model OrderViewModel
+@using MVCGrup2.Entities.Concrete
 @{
     ViewData["Title"] = "Create";
 }
@@ -10,20 +9,23 @@
 <h4>Order</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-       
-        @foreach (ExtraMat item in ViewBag.Extras)
-        {
-            <form asp-action="Create">
+    <div class="col-md-4 mb-3">
+        <form asp-action="Create" method="post">
+            @foreach (ExtraMat item in ViewBag.Extras)
+            {
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text">@item.Description</p>
+                        <div class="form-check">
+                            <input type="checkbox" id="@Model.ExtraMats.Add(item)" name="@item" value="@item" />
+                            <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
+                        </div>
                         <div class="form-group">
-                            <label asp-for="OrderCount" class="control-label"></label>
-                            <input id="OrderCount_@item.Id" name="OrderCount" class="form-control" onchange="updateTotal(@item.Price, @item.Id)" />
-                            <span asp-validation-for="OrderCount" class="text-danger"></span>
+                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts[@item.Id]" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
+                            <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Price</label>
@@ -33,17 +35,11 @@
                             <label class="control-label">Total</label>
                             <span id="Total_@item.Id">0</span>
                         </div>
-                        <input asp asp-route-id="@item.Id" type="submit" class="btn btn-primary" value="Add to Basket">
                     </div>
                 </div>
-            </form>
-        }
-
-
-
-        <div class="form-group">
-           
-        </div>
+            }
+            <button type="submit" class="btn btn-primary">Submit Order</button>
+        </form>
     </div>
 </div>
 
@@ -51,7 +47,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <script>
-    // Define your JavaScript function
+
     function updateTotal(price, itemId) {
         var orderCountInput = document.getElementById("OrderCount_" + itemId);
         var totalSpan = document.getElementById("Total_" + itemId);
@@ -62,14 +58,10 @@
         totalSpan.textContent = totalPrice;
     }
 
-    
+
 </script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-
-        
-
-
     }
 }

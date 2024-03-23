@@ -63,7 +63,7 @@ namespace MVCGrup2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
+        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM, Dictionary<string, string> ExtraMat)
         {
             Order order = new Order();
             Guid guid = new Guid();
