@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Data;
-
-
 namespace MVCGrup2
 
 {
@@ -20,12 +19,12 @@ namespace MVCGrup2
 
             builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
                          .AddRoles<IdentityRole>()
-                         .AddEntityFrameworkStores<MVCGrup2Context>();
 
+                         .AddEntityFrameworkStores<MVCGrup2Context>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -45,6 +44,8 @@ namespace MVCGrup2
 
             app.UseAuthorization();
 
+            app.MapRazorPages();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderViewModel>());
             app.MapRazorPages();
 
 #pragma warning disable ASP0014
