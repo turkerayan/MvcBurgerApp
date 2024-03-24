@@ -13,7 +13,8 @@ using MVCGrup2.Entities.Concrete;
 
 namespace MVCGrup2.Areas.Customer.Controllers
 {
-    //[Authorize("Customer")]
+    [Authorize]
+    [Area("Customer")]
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;

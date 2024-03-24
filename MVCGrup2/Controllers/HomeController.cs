@@ -5,6 +5,8 @@ using System.Diagnostics;
 
 namespace MVCGrup2.Controllers
 {
+
+
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
