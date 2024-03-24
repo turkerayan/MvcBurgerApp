@@ -1,5 +1,5 @@
-﻿@model OrderViewModel
-@using MVCGrup2.Entities.Concrete
+﻿@using MVCGrup2.Entities.Concrete
+@model OrderViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -23,10 +23,34 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
-                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts[@item.Id]" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
+                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
                             <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
                         </div>
                        
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">@item.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            @foreach (ExtraMat item in ViewBag.Menus)
+            {
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-check">
+                            <input type="checkbox" id="ExtraMat_@item.Id" name="SelectedExtraMats" value="@item.Id" />
+                            <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
+                            <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label">Total</label>
                             <span id="Total_@item.Id">@item.Price</span>
