@@ -5,7 +5,6 @@
 }
 
 <h1>Create</h1>
-
 <h4>Order</h4>
 <hr />
 <div class="row">
@@ -19,7 +18,7 @@
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text">@item.Description</p>
                         <div class="form-check">
-                            <input type="checkbox" id="@Model.ExtraMats.Add(item)" name="@item" value="@item" />
+                            <input type="checkbox" id="ExtraMat_@item.Id" name="SelectedExtraMats" value="@item.Id" />
                             <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
                         </div>
                         <div class="form-group">
@@ -27,13 +26,10 @@
                             <input type="number" id="OrderCount_@item.Id" name="OrderCounts[@item.Id]" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
                             <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Price</label>
-                            <span id="Price_@item.Id">@item.Price</span>
-                        </div>
+                       
                         <div class="form-group">
                             <label class="control-label">Total</label>
-                            <span id="Total_@item.Id">0</span>
+                            <span id="Total_@item.Id">@item.Price</span>
                         </div>
                     </div>
                 </div>
@@ -43,25 +39,23 @@
     </div>
 </div>
 
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-<script>
 
-    function updateTotal(price, itemId) {
-        var orderCountInput = document.getElementById("OrderCount_" + itemId);
-        var totalSpan = document.getElementById("Total_" + itemId);
-
-        var orderCount = parseInt(orderCountInput.value);
-        var totalPrice = orderCount * price;
-
-        totalSpan.textContent = totalPrice;
-    }
-
-
-</script>
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+         Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <script>
+        function updateTotal(price, itemId) {
+
+            var orderCountInput = document.getElementById("OrderCount_" + itemId);
+            var totalSpan = document.getElementById("Total_" + itemId);
+
+            var orderCount = parseInt(orderCountInput.value);
+            var totalPrice = orderCount * price;
+
+            totalSpan.innerHTML = totalPrice;
+        }
+    </script>
 }
