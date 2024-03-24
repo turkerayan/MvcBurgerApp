@@ -10,9 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
     <style>
-        body  {
+        body {
             background-image: url("https://i.imgur.com/1swDo4v.jpeg");
             background-size: cover; /* Resmi ekran boyutuna sığdırır */
             background-position: center; /* Resmi dikey ve yatay olarak ortalar */
@@ -22,7 +22,7 @@
             padding: 0; /* İçerik kenar boşluklarını kaldırır */
         }
 
-    
+
         #login img {
             margin: 10px 0;
         }
@@ -38,49 +38,83 @@
 
         #login .login-form {
             padding: 0px 25px;
-
         }
     </style>
 </head>
 <body>
-  
-    
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-<div id="login" class="container">
-  
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="login well well-small">
-        <div class="center">
-        
-          Burgeristan
-        </div>
-        <form  id="accoubt" method="post" accept-charset="utf-8">
-          <div class="control-group">
-            <div class="input-prepend">
-              <span class="add-on"><i class="icon-user"></i></span>
-               <input asp-for="Input.Email" name="data[User][username]" required="required" placeholder="Username" maxlength="255" type="text" id="UserUsername">
-                  </div>
-          </div>
-          <div class="control-group">
-            <div class="input-prepend">
-              <span class="add-on"><i class="icon-lock"></i></span>
-             <input asp-for="Input.Password" name="data[User][password]" required="required" placeholder="Password" type="password" id="UserPassword">
-              <span asp-validation-for="Input.Password" class="text-danger"></span>
-              </div>
-          </div>
-          <div class="control-group">
-            <label id="remember-me">
-              <input type="checkbox" name="data[User][remember_me]" value="1" id="UserRememberMe"> Remember Me?</label>
-          </div>
-          <div class="control-group">
-            <input   class="btn btn-primary btn-large btn-block" type="submit" value="Sign in"> 
-          </div>
-        </form>
-      </div><!--/.login-->
-    </div><!--/.span12-->
-  </div><!--/.row-fluid-->
-</div><!--/.container-->
+
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <div id="login" class="container">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="login well well-small">
+                    <div class="center">
+
+                        Burgeristan
+                    </div>
+                    <form id="account" method="post">
+                        <h2>Use a local account to log in.</h2>
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="form-label">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                            <label asp-for="Input.Password" class="form-label">Password</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="checkbox mb-3">
+                            <label asp-for="Input.RememberMe" class="form-label">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                        <div>
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                        </div>
+                        <div>
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            </p>
+                            <p>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            </p>
+                        </div>
+                    </form>
+                    @*  <form  id="accoubt" method="post" accept-charset="utf-8">
+                    <div class="control-group">
+                    <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span>
+                    <input asp-for="Input.Email" name="data[User][username]" required="required" placeholder="Username" maxlength="255" type="text" id="UserUsername">
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <div class="input-prepend">
+                    <span class="add-on"><i class="icon-lock"></i></span>
+                    <input asp-for="Input.Password" name="data[User][password]" required="required" placeholder="Password" type="password" id="UserPassword">
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label id="remember-me">
+                    <input type="checkbox" name="data[User][remember_me]" value="1" id="UserRememberMe"> Remember Me?</label>
+                    </div>
+                    <div class="control-group">
+                    <input   class="btn btn-primary btn-large btn-block" type="submit" value="Sign in">
+                    </div>
+                    </form> *@
+                </div><!--/.login-->
+            </div><!--/.span12-->
+        </div><!--/.row-fluid-->
+    </div><!--/.container-->
 </body>
 </html>
 @section Scripts {

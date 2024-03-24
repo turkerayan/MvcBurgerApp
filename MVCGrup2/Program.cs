@@ -63,7 +63,9 @@ namespace MVCGrup2
                 endpoints.MapControllerRoute(
                     name: "AdminAreaRoute",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
+                endpoints.MapControllerRoute(
+                    name: "CustomerAreaRoute",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
