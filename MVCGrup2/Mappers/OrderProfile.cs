@@ -13,8 +13,8 @@ namespace MVCGrup2.Mappers
                                              .ForMember(vm => vm.OrderStatus, opt => opt.MapFrom(e => e.OrderStatus))
                                              .ForMember(vm => vm.OrderCount, opt => opt.MapFrom(e => e.OrderCount))
                                              .ForMember(vm => vm.Total, opt => opt.MapFrom(e => e.Total))
-                                             .ForMember(vm => vm.ExtraMats, opt => opt.MapFrom(e => e.ExtraMats))
-                                             .ForMember(vm => vm.Menus, opt => opt.MapFrom(e => e.Menus))
+                                             .ForMember(vm => vm.ExtraMatsViewModel, opt => opt.MapFrom(e => e.ExtraMats))
+                                             .ForMember(vm => vm.MenusViewModel, opt => opt.MapFrom(e => e.Menus))
                                              .ReverseMap();
                                              
         }

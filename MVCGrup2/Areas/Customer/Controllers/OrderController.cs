@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
+using MVCGrup2.Models;
+using Newtonsoft.Json.Linq;
 
 namespace MVCGrup2.Areas.Customer.Controllers
 {
@@ -66,28 +68,56 @@ namespace MVCGrup2.Areas.Customer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM)
+        public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM, [FromForm] string[] SelectedExtraMats)
         {
+            Dictionary<string, int> extraMalzMiktari = new Dictionary<string, int>();
+
+            var formdict = HttpContext.Request.Form.ToDictionary(f => f.Key, f => f.Value.ToString());
+
+            foreach (var extraMatId in SelectedExtraMats)
+            {
+                extraMalzMiktari.Add(extraMatId,int.Parse(formdict["OrderCounts_" + extraMatId]));
+            }
+
             Order order = new Order();
-            Guid guid = new Guid();
-            orderVM.Id = guid;
+            order = _mapper.Map<Order>(orderVM);
+            foreach (var item in extraMalzMiktari)
+            {
+                var extra = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id ==Guid.Parse(item.Key));
+            //order.ExtraMats.Add()
+                
+            }
+
+
+
+            //Guid guid = new Guid();
+
+            //foreach (var item in formData.Keys)
+            //{
+            //    var value = formData[item];
+            //    orderVM.ExtraMats.Add(await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == value));
+
+
+            //}
+
+            //order.OrderCount = Convert.ToInt32(item.Value);
 
             var extraMat = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == id);
-
+            
             if (extraMat != null)
                 orderVM.ExtraMats.Add(extraMat);
 
-            var menus = await _context.Menus.FindAsync(id);
-            if (menus != null)
-                orderVM.Menus.Add(menus);
+            //var menus = await _context.Menus.FindAsync(id);
+            //if (menus != null)
+            //    orderVM.Menus.Add(menus);
 
 
-            orderVM.ExtraMats.Add(extraMat);
+            ////orderVM.ExtraMats.Add(extraMat);
 
-            if (orderVM.ExtraMats != null)
-                order.ExtraMats = orderVM.ExtraMats;
-            if (orderVM.Menus != null)
-                order.Menus = orderVM.Menus;
+            //if (orderVM.ExtraMats != null)
+            //    order.ExtraMats = orderVM.ExtraMats;
+            //if (orderVM.Menus != null)
+            //    order.Menus = orderVM.Menus;
 
             if (ModelState.IsValid)
             {
