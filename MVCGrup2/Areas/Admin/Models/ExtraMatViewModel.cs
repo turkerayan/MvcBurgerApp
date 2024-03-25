@@ -17,7 +17,7 @@ namespace MVCGrup2.Areas.Admin.Models
         [EnumDataType(typeof(Size))]
 
         public Size Size { get; set; }
-
+        //[NotMapped]
         public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }

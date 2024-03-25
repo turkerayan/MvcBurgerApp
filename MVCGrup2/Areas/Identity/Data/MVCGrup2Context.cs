@@ -30,6 +30,6 @@ public class MVCGrup2Context : IdentityDbContext<MVCGrup2User>
     public DbSet<Order> Orders { get; set; }
     public DbSet<Menu> Menus { get; set; }
 
-public DbSet<MVCGrup2.Models.OrderViewModel> OrderViewModel { get; set; } = default!;
+    //public DbSet<MVCGrup2.Models.OrderViewModel> OrderViewModel { get; set; } = default!;
 
 }
