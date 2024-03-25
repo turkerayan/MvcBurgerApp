@@ -1,0 +1,69 @@
+﻿@using MVCGrup2.Entities.Concrete
+@model MVCGrup2.Models.OrderViewModel
+
+<h4>OrderViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @foreach (ExtraMat item in ViewBag.Extras)
+        {
+            <form asp-controller="Order" asp-action="Create">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-group">
+                            <label asp-for="OrderCount" class="control-label"></label>
+                            <input id="OrderCount_@item.Id" name="OrderCount" class="form-control" onchange="updateTotal(@item.Price, @item.Id)" />
+                            <span asp-validation-for="OrderCount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Price</label>
+                            <span id="Price_@item.Id">@item.Price</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">0</span>
+                        </div>
+                        <input asp asp-route-id="@item.Id" type="submit" class="btn btn-primary" value="Add to Basket">
+                    </div>
+                </div>
+            </form>
+        }
+        @foreach (Menu item in ViewBag.Menus)
+        {
+            <form asp-controller="Order" asp-action="Create">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-group">
+                            <label asp-for="OrderCount" class="control-label"></label>
+                            <input id="OrderCount_@item.Id" name="OrderCount" class="form-control" onchange="updateTotal(@item.Price, @item.Id)" />
+                            <span asp-validation-for="OrderCount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Price</label>
+                            <span id="Price_@item.Id">@item.Price</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">0</span>
+                        </div>
+                        <input asp asp-route-id="@item.Id" type="submit" class="btn btn-primary" value="Add to Basket">
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
