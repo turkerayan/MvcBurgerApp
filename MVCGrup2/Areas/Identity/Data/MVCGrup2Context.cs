@@ -5,6 +5,7 @@ using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Roles;
 using System.Reflection.Emit;
+using MVCGrup2.Models;
 
 namespace MVCGrup2.Data;
 
@@ -28,5 +29,7 @@ public class MVCGrup2Context : IdentityDbContext<MVCGrup2User>
     public DbSet<Role>? Roles { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Menu> Menus { get; set; }
+
+public DbSet<MVCGrup2.Models.OrderViewModel> OrderViewModel { get; set; } = default!;
 
 }
