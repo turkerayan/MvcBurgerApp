@@ -78,19 +78,20 @@ namespace MVCGrup2.Areas.Customer.Controllers
             {
                 extraMalzMiktari.Add(extraMatId,int.Parse(formdict["OrderCounts_" + extraMatId]));
             }
-
+            
+            orderVM.Id = Guid.NewGuid();
             Order order = new Order();
             order = _mapper.Map<Order>(orderVM);
             foreach (var item in extraMalzMiktari)
             {
                 var extra = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id ==Guid.Parse(item.Key));
-            //order.ExtraMats.Add()
-                
+                order.ExtraMats.Add(extra);
+
+
             }
 
 
 
-            //Guid guid = new Guid();
 
             //foreach (var item in formData.Keys)
             //{

@@ -15,7 +15,7 @@ namespace MVCGrup2.Areas.Customer.Models
 
         public OrderStatus OrderStatus { get; set; }
 
-        public int OrderCount { get; set; }
+        public int MenusCount { get; set; }
 
         //public string? MenuId { get; set; }
         [ValidateNever]
@@ -23,6 +23,8 @@ namespace MVCGrup2.Areas.Customer.Models
         public ICollection<MenuViewModel> MenusViewModel { get; set; } = new List<MenuViewModel>();
 
         //public string? ExtraMatId { get; set; }
+        public int MenusCount { get; set; }
+
         [ValidateNever]
         public ICollection<ExtraMatViewModel> ExtraMatsViewModel { get; set; } = new List<ExtraMatViewModel>();
         //modele ceklimeli

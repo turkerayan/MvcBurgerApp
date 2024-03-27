@@ -13,7 +13,7 @@ using MVCGrup2.Entities.Concrete;
 namespace MVCGrup2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ExtraMatController : Controller
     {
         private readonly MVCGrup2Context _context;
