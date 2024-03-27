@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\NewFolder1\**" />
+    <Compile Remove="Areas\NewFolder2\**" />
+    <Compile Remove="Areas\NewFolder\**" />
+    <Content Remove="Areas\NewFolder1\**" />
+    <Content Remove="Areas\NewFolder2\**" />
+    <Content Remove="Areas\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\NewFolder1\**" />
+    <EmbeddedResource Remove="Areas\NewFolder2\**" />
+    <EmbeddedResource Remove="Areas\NewFolder\**" />
+    <None Remove="Areas\NewFolder1\**" />
+    <None Remove="Areas\NewFolder2\**" />
+    <None Remove="Areas\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
@@ -20,7 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Customer\Data\" />
+    <Folder Include="Areas\Identity\Pages\Account\resim\" />
+    <Folder Include="Areas\Identity\Pages\Resimler\" />
     <Folder Include="wwwroot\Pictures\" />
   </ItemGroup>
 

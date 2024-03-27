@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MVCGrup2.Areas.Admin.Data;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Models;
@@ -19,16 +22,20 @@ namespace MVCGrup2
             var connectionString = builder.Configuration.GetConnectionString("MVCGrup2ContextConnection") ?? throw new InvalidOperationException("Connection string 'MVCGrup2ContextConnection' not found.");
 
             builder.Services.AddDbContext<MVCGrup2Context>(options => options.UseSqlServer(connectionString));
-
             builder.Services.AddDefaultIdentity<MVCGrup2User>(options => options.SignIn.RequireConfirmedAccount = true)
                          .AddRoles<IdentityRole>()
 
                          .AddEntityFrameworkStores<MVCGrup2Context>();
-
-            // Add services to the container.
+            builder.Services.AddScoped<Seed>();
+            
             builder.Services.AddControllersWithViews();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             var app = builder.Build();
+            using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var seedDataService = serviceScope.ServiceProvider.GetRequiredService<Seed>();
+                seedDataService.CreateAdminIfNotExist().Wait();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -57,7 +64,9 @@ namespace MVCGrup2
                 endpoints.MapControllerRoute(
                     name: "AdminAreaRoute",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
+                endpoints.MapControllerRoute(
+                    name: "CustomerAreaRoute",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

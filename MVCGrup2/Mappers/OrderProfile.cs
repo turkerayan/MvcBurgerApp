@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Entities.Concrete;
-using MVCGrup2.Models;
 
 namespace MVCGrup2.Mappers
 {

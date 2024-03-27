@@ -4,7 +4,8 @@ using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
 
-namespace MVCGrup2.Models
+
+namespace MVCGrup2.Areas.Customer.Models
 {
     public class OrderViewModel
     {

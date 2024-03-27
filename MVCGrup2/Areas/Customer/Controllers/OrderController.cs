@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Models;
 using Newtonsoft.Json.Linq;
 
-namespace MVCGrup2.Controllers
+namespace MVCGrup2.Areas.Customer.Controllers
 {
+    [Authorize]
+    [Area("Customer")]
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
@@ -98,7 +102,10 @@ namespace MVCGrup2.Controllers
 
             //order.OrderCount = Convert.ToInt32(item.Value);
 
-
+            var extraMat = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == id);
+            
+            if (extraMat != null)
+                orderVM.ExtraMats.Add(extraMat);
 
             //var menus = await _context.Menus.FindAsync(id);
             //if (menus != null)
