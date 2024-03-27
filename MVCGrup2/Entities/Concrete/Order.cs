@@ -19,12 +19,13 @@ namespace MVCGrup2.Entities.Concrete
 
         public OrderStatus OrderStatus { get; set; }
 
-        public int OrderCount { get; set; }
-
         //public string? MenuId { get; set; }
+
+        public int MenusCount { get; set; }
 
         public ICollection<Menu> Menus { get; set; }
 
+        public int ExtraMatsCount { get; set; }
         //public string? ExtraMatId { get; set; }
 
         public ICollection<ExtraMat> ExtraMats { get; set; }
