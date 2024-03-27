@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,17 +17,18 @@ using Newtonsoft.Json.Linq;
 namespace MVCGrup2.Areas.Customer.Controllers
 {
     [Authorize]
-    [Area("Customer")]
+   [Area("Customer")]
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<MVCGrup2User>_userManager;
 
-
-        public OrderController(MVCGrup2Context context, IMapper mapper)
+        public OrderController(MVCGrup2Context context, IMapper mapper,UserManager<MVCGrup2User>userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
 
         }
 
@@ -100,13 +102,15 @@ namespace MVCGrup2.Areas.Customer.Controllers
 
             }
 
-            if (ModelState.IsValid)
-            {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user=_userManager.Users.Where(u=>u.Id == userId).FirstOrDefault();
+            order.User = user;
+             
                 order.Id = Guid.NewGuid();
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            
             return View(order);
         }
 
