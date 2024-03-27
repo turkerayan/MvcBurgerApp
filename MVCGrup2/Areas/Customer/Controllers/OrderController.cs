@@ -102,9 +102,11 @@ namespace MVCGrup2.Areas.Customer.Controllers
 
             }
 
-            var userId = _userManager.GetUserId(HttpContext.User);
+           
+           var userId=_userManager.GetUserId(HttpContext.User);
             var user=_userManager.Users.Where(u=>u.Id == userId).FirstOrDefault();
-            order.User = user;
+        //   order.User = user;
+           //order.User =userId;
              
                 order.Id = Guid.NewGuid();
                 _context.Add(order);
