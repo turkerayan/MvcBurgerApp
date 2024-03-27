@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using MVCGrup2.Areas.Admin.Models;
 using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
@@ -18,12 +19,12 @@ namespace MVCGrup2.Models
         //public string? MenuId { get; set; }
         [ValidateNever]
 
-        public ICollection<Menu> Menus { get; set; } = new List<Menu>();
+        public ICollection<MenuViewModel> MenusViewModel { get; set; } = new List<MenuViewModel>();
 
         //public string? ExtraMatId { get; set; }
         [ValidateNever]
-        public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
-
+        public ICollection<ExtraMatViewModel> ExtraMatsViewModel { get; set; } = new List<ExtraMatViewModel>();
+        //modele ceklimeli
         public MVCGrup2User User { get; set; }
 
         public double Total { get; set; }
@@ -31,12 +32,12 @@ namespace MVCGrup2.Models
         public double TotalCalc()
         {
 
-            foreach (var item in Menus)
+            foreach (var item in MenusViewModel)
             {
                 Total += item.Price;
             }
 
-            foreach (var item in ExtraMats)
+            foreach (var item in MenusViewModel)
             {
                 Total += item.Price;
             }
