@@ -18,9 +18,12 @@ namespace MVCGrup2.Controllers
 			_db = db;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			return View(_db.Menus.ToList());
+           
+            ViewBag.Menus = _db.ExtraMats.ToList();
+           
+            return View(_db.Menus.ToList());
 		}
 
 		public IActionResult Privacy()

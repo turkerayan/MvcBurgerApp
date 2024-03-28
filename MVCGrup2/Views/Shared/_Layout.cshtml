@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using MVCGrup2.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<MVCGrup2User> SignInManager
+@inject UserManager<MVCGrup2User> UserManager
+@{
+    
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,16 +40,22 @@
                         <li class="nav-item active">
                             <a class="nav-link" asp-controller="Home" asp-action="Index" >Home <span class="sr-only">(current)</span></a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            
                         <li class="nav-item"   >
                             <a asp-area="Admin" asp-controller="Menu" asp-action="Index"  class="nav-link">Menu</a>
                         </li>
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="ExtraMat" asp-action="Index" class="nav-link" >ExtraMat</a>
                         </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Index">Menu</a>
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Order" asp-action="Create">Order Now!</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Order" asp-action="Index">Cart</a>
+                        </li>
            @*              <li class="nav-item">
 
                             <a class="nav-link btn btn-primary text-white"  data-toggle="modal" data-target="#myModal">Sign In</a>

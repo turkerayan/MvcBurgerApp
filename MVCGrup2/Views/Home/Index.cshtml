@@ -13,7 +13,16 @@
 
     <h1 class="mt-3 mb-4 text-center" style="color:orangered">Menüs</h1>
 
-    <div class="row">
+    <div class="row">@foreach (var item in ViewBag.Menus)
+        {
+            <div class="col-md-6 mb-2">
+                <div class="card text-center d-flex align-items-center" style="color:orangered">
+                    <h4 class="mt-2">@item.Name</h4>
+
+                    <img src="~/Pictures/@item.PictureName" class="img-fluid mx-auto" style="max-width:50%" alt="" />
+                </div>
+            </div>
+        }
         @foreach (var item in Model)
         {
             <div class="col-md-6 mb-2">

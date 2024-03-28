@@ -36,23 +36,23 @@ namespace MVCGrup2.Entities.Concrete
 
         public double Total { get; set; }
 
-        public double TotalCalc()
-        {
+        //public double TotalCalc()
+        //{
 
-            foreach (var item in Menus)
-            {
-                Total += item.Price;
-            }
+        //    foreach (var item in Menus)
+        //    {
+        //        Total += item.Price;
+        //    }
 
-            foreach (var item in ExtraMats)
-            {
-                Total += item.Price;
-            }
+        //    foreach (var item in ExtraMats)
+        //    {
+        //        Total += item.Price;
+        //    }
 
-            Total = Total * OrderCount;
+        //    Total = Total * OrderCount;
 
-            return Total; 
-        }
+        //    return Total; 
+        //}
 
 
 

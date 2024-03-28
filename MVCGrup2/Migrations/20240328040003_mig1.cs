@@ -217,7 +217,6 @@ namespace MVCGrup2.Migrations
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderStatus = table.Column<int>(type: "int", nullable: false),
                     OrderCount = table.Column<int>(type: "int", nullable: false),
-                    MVCGrup2User2 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Total = table.Column<double>(type: "float", nullable: false)
                 },

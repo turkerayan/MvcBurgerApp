@@ -31,23 +31,23 @@ namespace MVCGrup2.Areas.Customer.Models
 
         public double Total { get; set; }
 
-        public double TotalCalc()
-        {
+        //public double TotalCalc()
+        //{
 
-            foreach (var item in MenusViewModel)
-            {
-                Total += item.Price;
-            }
+        //    foreach (var item in MenusViewModel)
+        //    {
+        //        Total += item.Price;
+        //    }
 
-            foreach (var item in MenusViewModel)
-            {
-                Total += item.Price;
-            }
+        //    foreach (var item in MenusViewModel)
+        //    {
+        //        Total += item.Price;
+        //    }
 
-            Total = Total * OrderCount;
+        //    Total = Total * OrderCount;
 
-            return Total;
-        }
+        //    return Total;
+        //}
 
     }
 }

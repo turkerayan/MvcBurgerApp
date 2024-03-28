@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,7 +25,7 @@ namespace MVCGrup2.Areas.Admin.Models
 
         //public string OrderId { get; set; }
 
-        //public ICollection<Order> Orders { get; set; }
+        public ICollection<OrderViewModel> OrdersViewModel { get; set; }
 
         //public string MenuId { get; set; }
 
