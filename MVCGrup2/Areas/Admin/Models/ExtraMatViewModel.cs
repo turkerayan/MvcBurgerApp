@@ -24,6 +24,7 @@ namespace MVCGrup2.Areas.Admin.Models
         public string ImagePath { get; set; }
 
         //public string OrderId { get; set; }
+        [ValidateNever]
 
         public ICollection<OrderViewModel> OrdersViewModel { get; set; }
 

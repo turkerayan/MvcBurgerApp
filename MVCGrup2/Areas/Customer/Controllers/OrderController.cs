@@ -111,7 +111,7 @@ namespace MVCGrup2.Areas.Customer.Controllers
                     for (int i = 0; i < item.Value; i++)
                     {
                         order.OrderCount++;
-                        order.Total = menu.Price;
+                        order.Total += menu.Price;
                         order.Menus.Add(menu);
                     }
                 }
@@ -150,35 +150,35 @@ namespace MVCGrup2.Areas.Customer.Controllers
             orderVM.OrderStatus = order.OrderStatus;
             orderVM.OrderCount = order.OrderCount;
             orderVM.User = order.User;
-            orderVM.ExtraMatsViewModel = (ICollection<ExtraMatViewModel>)order.ExtraMats;
-            orderVM.MenusViewModel = (ICollection<MenuViewModel>)order.Menus;
+            //orderVM.ExtraMatsViewModel = (ICollection<ExtraMatViewModel>)order.ExtraMats;
+            //orderVM.MenusViewModel = (ICollection<MenuViewModel>)order.Menus;
 
-            //orderVM.MenusViewModel = order.Menus.Select(menu =>
-            //        new MenuViewModel
-            //        {
-            //            Id = menu.Id,
-            //            Name = menu.Name,
-            //            Description = menu.Description,
-            //            Active = menu.Active,
-            //            Size = menu.Size,
-            //            MenuCount = menu.MenuCount,
-            //            Price = menu.Price,
-            //            OrdersViewModel = (ICollection<OrderViewModel>)menu.Orders,
+            orderVM.MenusViewModel = order.Menus.Select(menu =>
+                    new MenuViewModel
+                    {
+                        Id = menu.Id,
+                        Name = menu.Name,
+                        Description = menu.Description,
+                        Active = menu.Active,
+                        Size = menu.Size,
+                        MenuCount = menu.MenuCount,
+                        Price = menu.Price,
+                        //OrdersViewModel = (ICollection<OrderViewModel>)menu.Orders,
 
-            //        }).ToList();
-            //orderVM.ExtraMatsViewModel = order.ExtraMats.Select(extra =>
-            //        new ExtraMatViewModel
-            //        {
-            //            Id = extra.Id,
-            //            Name = extra.Name,
-            //            Description = extra.Description,
-            //            Active = extra.Active,
-            //            Size = extra.Size,
-            //            ExtraCount = extra.ExtraCount,
-            //            Price = extra.Price,
+                    }).ToList();
+            orderVM.ExtraMatsViewModel = order.ExtraMats.Select(extra =>
+                    new ExtraMatViewModel
+                    {
+                        Id = extra.Id,
+                        Name = extra.Name,
+                        Description = extra.Description,
+                        Active = extra.Active,
+                        Size = extra.Size,
+                        ExtraCount = extra.ExtraCount,
+                        Price = extra.Price,
 
 
-            //        }).ToList();
+                    }).ToList();
 
             if (orderVM.MenusViewModel != null)
             {
