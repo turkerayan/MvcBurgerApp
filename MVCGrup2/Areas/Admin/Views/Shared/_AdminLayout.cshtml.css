@@ -1,48 +1,137 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿<link rel="preconnect" href="https://fonts.googleapis.com" >
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" >
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    word-break: break-all;
 }
 
 a {
-  color: #0077cc;
+    color: #0077cc;
+}
+
+.navbar-brand img {
+    max-height: 20vh; /* Changed from max-height: 400px */
+    max-width: 100%; /* Ensure image responsiveness */
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    border-color: #1861ac;
+}
+
+.navbar {
+    background-color: #FDF9EF !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height:22vh;
+    min-height: 7vh;
+}
+
+.navbar-toggler {
+    display:none;
+}
+
+.navbar-toggler-icon {
+    background-color: #0077cc;
+}
+.custom-login-partial
+{
+    margin-right:5vh;
+}
+.nav-link.btn {
+    background-color: #71A482;
+    color: moccasin;
+    border-radius: 20px;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+    height: 8vh;
+    width: 15vh;
+    line-height: normal;
+    font-weight: 500 !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.current {
+    background-color: #ff6b00;
+    color: moccasin;
+    text-decoration: none;
+    border-radius: 20px;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+    height: 8vh;
+    width: 15vh;
+    line-height: normal;
+    font-weight: 500 !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    .current:hover {
+        background-color: #71A482;
+        color: moccasin;
+    }
+
+.nav-link.btn:hover {
+    background-color: #ff6b00;
+    color: moccasin;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-top: 20px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    background-color: #FDF9EF !important;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.admin-container {
+    padding-top: 2vh;
+}
+
+.custom-container {
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

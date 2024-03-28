@@ -1,5 +1,9 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" >
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" >
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -18,5 +22,32 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    
 }
+
+
+
+.nav-link.btn {
+    background-color: #71A482;
+    color: moccasin;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+    height: 8vh;
+    width: 15vh;
+    line-height: normal;
+    font-weight: 400 !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+    .nav-link.btn:hover {
+        background-color: #ff6b00;
+        color: moccasin;
+    }

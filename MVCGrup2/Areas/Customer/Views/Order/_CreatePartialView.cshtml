@@ -1,0 +1,70 @@
+﻿@using MVCGrup2.Areas.Customer.Models
+@using MVCGrup2.Entities.Concrete
+
+@model OrderViewModel
+
+<h4>OrderViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            @foreach (ExtraMat item in ViewBag.Extras)
+            {
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-check">
+                            <input type="checkbox" id="ExtraMat_@item.Id" name="SelectedExtraMats" value="@item.Id" />
+                            <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
+                            <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">@item.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            @foreach (Menu item in ViewBag.Menus)
+            {
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/Pictures/@item.PictureName" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="form-check">
+                            <input type="checkbox" id="ExtraMat_@item.Id" name="SelectedExtraMats" value="@item.Id" />
+                            <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
+                            <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <span id="Total_@item.Id">@item.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Submit Order</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

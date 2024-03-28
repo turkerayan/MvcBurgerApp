@@ -12,20 +12,23 @@ using MVCGrup2.Entities.Concrete;
 namespace MVCGrup2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class MenuController : Controller
     {
         private readonly MVCGrup2Context _context;
 
         public MenuController(MVCGrup2Context context)
         {
-            _context = context;
+			
+			_context = context;
         }
 
         // GET: Menu
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Menus.ToListAsync());
+			ViewData["Title"] = "Menu";
+			ViewBag.CurrentController = "Menu";
+			return View(await _context.Menus.ToListAsync());
         }
 
         // GET: Menu/Details/5
