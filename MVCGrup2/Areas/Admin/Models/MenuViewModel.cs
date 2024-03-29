@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
@@ -34,8 +35,9 @@ namespace MVCGrup2.Areas.Admin.Models
         public int MenuCount { get; set; }
 
         //public string? OrderId { get; set; }
+        [ValidateNever]
 
-        public ICollection<Order>? Orders { get; set; }
+        public ICollection<OrderViewModel> OrdersViewModel { get; set; }
 
         private double _price;
 

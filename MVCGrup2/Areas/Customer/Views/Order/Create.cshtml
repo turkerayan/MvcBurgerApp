@@ -1,0 +1,31 @@
+﻿@using MVCGrup2.Entities.Concrete
+@using MVCGrup2.Areas.Customer.Models
+@model OrderViewModel
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h1>Create</h1>
+<h4>Order</h4>
+<hr />
+
+
+  <partial name="_CreatePartialView.cshtml" />
+         
+
+
+@section Scripts {
+         Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <script>
+        function updateTotal(price, itemId) {
+
+            var orderCountInput = document.getElementById("OrderCount_" + itemId);
+            var totalSpan = document.getElementById("Total_" + itemId);
+
+            var orderCount = parseInt(orderCountInput.value);
+            var totalPrice = orderCount * price;
+
+            totalSpan.innerHTML = totalPrice;
+        }
+    </script>
+}

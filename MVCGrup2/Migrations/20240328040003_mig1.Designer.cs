@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCGrup2.Migrations
 {
     [DbContext(typeof(MVCGrup2Context))]
-    [Migration("20240323141653_mig1")]
+    [Migration("20240328040003_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -191,9 +191,6 @@ namespace MVCGrup2.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MVCGrup2User2")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("OrderCount")

@@ -3,7 +3,7 @@
 @inject SignInManager<MVCGrup2User> SignInManager
 @inject UserManager<MVCGrup2User> UserManager
 @{
-    
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +27,10 @@
 <body>
     <header>
         <div class="container">
-       
+
 
             <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" >Burgeristan</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Burgeristan</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -38,17 +38,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto topnav">
                         <li class="nav-item active">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index" >Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-                            
-                        <li class="nav-item"   >
-                            <a asp-area="Admin" asp-controller="Menu" asp-action="Index"  class="nav-link">Menu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="ExtraMat" asp-action="Index" class="nav-link" >ExtraMat</a>
-                        </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="Menu" asp-action="Index" class="nav-link">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ExtraMat" asp-action="Index" class="nav-link">ExtraMat</a>
+                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Order" asp-action="Create">Order Now!</a>
@@ -56,24 +56,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Order" asp-action="Index">Cart</a>
                         </li>
-           @*              <li class="nav-item">
 
-                            <a class="nav-link btn btn-primary text-white"  data-toggle="modal" data-target="#myModal">Sign In</a>
+
+                        @*              <li class="nav-item">
+
+                        <a class="nav-link btn btn-primary text-white"  data-toggle="modal" data-target="#myModal">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-danger text-white"   data-toggle="modal" data-target="#myModal">Register</a>
+                        <a class="nav-link btn btn-danger text-white"   data-toggle="modal" data-target="#myModal">Register</a>
                         </li> *@
                     </ul>
 
 
-             
-                <partial name="_LoginPartial.cshtml" />
-     
+
+                    <partial name="_LoginPartial.cshtml" />
+
 
 
                 </div>
 
-   
+
 
             </nav>
         </div>

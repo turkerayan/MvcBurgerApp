@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using MVCGrup2.Areas.Customer.Models;
 using MVCGrup2.Enums;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,14 +18,15 @@ namespace MVCGrup2.Areas.Admin.Models
         [EnumDataType(typeof(Size))]
 
         public Size Size { get; set; }
-
+        //[NotMapped]
         public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
         //public string OrderId { get; set; }
+        [ValidateNever]
 
-        //public ICollection<Order> Orders { get; set; }
+        public ICollection<OrderViewModel> OrdersViewModel { get; set; }
 
         //public string MenuId { get; set; }
 

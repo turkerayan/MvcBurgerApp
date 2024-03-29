@@ -116,7 +116,10 @@ namespace MVCGrup2.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    //return RedirectToPage("./Order/Create");/*, new { areas = "Customer" });*/
+                    //return RedirectToPage("//Customer//Order//Create");/*, new { areas = "Customer" });*/
+                    return RedirectToAction("Create", "Order", new { area = "Customer" });
+                    //return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
