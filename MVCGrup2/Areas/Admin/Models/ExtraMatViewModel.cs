@@ -18,8 +18,9 @@ namespace MVCGrup2.Areas.Admin.Models
         [EnumDataType(typeof(Size))]
 
         public Size Size { get; set; }
-        //[NotMapped]
-        public IFormFile Image { get; set; }
+		//[NotMapped]
+		[ValidateNever]
+		public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
@@ -46,7 +47,7 @@ namespace MVCGrup2.Areas.Admin.Models
             get { return _price; }
             set
             {
-                _price = value; // Store the value in the private field
+                _price = value;
 
                 switch (Size)
                 {
@@ -60,8 +61,14 @@ namespace MVCGrup2.Areas.Admin.Models
                         _price *= 1.3d;
                         break;
                 }
-                _price = _price * ExtraCount;
-            }
+                if (ExtraCount > 0)
+                {
+                    _price = _price * ExtraCount;
+                }
+                else
+                    _price = _price * 1;
+
+			}
         }
     }
 }

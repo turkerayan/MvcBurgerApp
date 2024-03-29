@@ -12,20 +12,23 @@ using MVCGrup2.Entities.Concrete;
 namespace MVCGrup2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class MenuController : Controller
     {
         private readonly MVCGrup2Context _context;
 
         public MenuController(MVCGrup2Context context)
         {
-            _context = context;
+			
+			_context = context;
         }
 
         // GET: Menu
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Menus.ToListAsync());
+			ViewData["Title"] = "Menu";
+			ViewBag.CurrentController = "Menu";
+			return View(await _context.Menus.ToListAsync());
         }
 
         // GET: Menu/Details/5
@@ -70,7 +73,7 @@ namespace MVCGrup2.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MenuCount,Name,Price,Description,Active,Size,Image")] MenuViewModel menuViewModel)
+        public async Task<IActionResult> Create([Bind("Name,Description,Price,Active,Image")] MenuViewModel menuViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +85,7 @@ namespace MVCGrup2.Areas.Admin.Controllers
                 menuViewModel.Active,
                 menuViewModel.Size,
                 menuViewModel.Image.FileName);
-            menu.MenuCount = menuViewModel.MenuCount;
+                menu.MenuCount = 1;
             menu.Price = menuViewModel.Price;
 
             if (menuViewModel.Image != null)
@@ -124,10 +127,9 @@ namespace MVCGrup2.Areas.Admin.Controllers
             menuViewModel.Price=menu.Price;
             menuViewModel.Active = menu.Active;
             menuViewModel.Size = menu.Size;
-          
             menuViewModel.ImagePath="\\Pictures\\" + menu.PictureName;
 
-            ViewBag.Menu= "\\Pictures\\" + menu.PictureName;
+            ViewBag.ImagePath= "\\Pictures\\" + menu.PictureName;
 
             if (menuViewModel == null)
             {
@@ -168,6 +170,10 @@ namespace MVCGrup2.Areas.Admin.Controllers
                         MenuUpdate.PictureName = fileName;
 
                     }
+                    else
+                    {
+                        menuModel.ImagePath = "\\Pictures\\" + MenuUpdate.PictureName;
+					}
                     MenuUpdate.Name= menuModel.Name;
                     MenuUpdate.Price = menuModel.Price;
                     MenuUpdate.Description = menuModel.Description;

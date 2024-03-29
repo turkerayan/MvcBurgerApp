@@ -4,6 +4,7 @@
     {
         Ordered,
         OnTheWay,
-        Delivered
+        Delivered,
+        Cancelled
     }
 }

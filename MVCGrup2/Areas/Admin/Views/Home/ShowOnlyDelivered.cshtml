@@ -1,0 +1,83 @@
+﻿@using MVCGrup2.Data
+@using MVCGrup2.Enums
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<MVCGrup2User> _userManager;
+@model IEnumerable<MVCGrup2.Entities.Concrete.Order>
+@{
+    ViewData["Title"] = "Delivered Orders";
+    MVCGrup2User? user = await _userManager.GetUserAsync(User);
+    double total = 0;
+
+}
+<h4>Hello @user.Name!</h4>
+<p>You can manage your orders from here.</p>
+
+<hr />
+<p>
+    <a class="btn btn-outline-success" asp-action="Index">Show All Orders</a>
+    <a class="btn btn-outline-success" asp-action="ShowOnlyActives">Show Active Orders Only</a>
+    <a class="btn btn-outline-success" asp-action="ShowOnlyDelivered">Show Delivered Orders Only</a>
+</p>
+
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                    @{
+                        total += item.Total;
+                    }
+                </td>
+                <td>
+                    <p style ="color:greenyellow">@item.OrderStatus</p>
+                </td>
+            </tr>
+        }
+        </tbody>
+    <tfoot>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <td>
+                <p style="color:greenyellow">Approx: @Convert.ToInt32(total)</p>
+            </td>
+            <th>
+            </th>
+
+        </tr>
+    </tfoot>
+</table>

@@ -36,7 +36,8 @@ namespace MVCGrup2.Areas.Customer.Controllers
         // GET: Order
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            MVCGrup2User? user = await _userManager.GetUserAsync(User);
+            return View(await _context.Orders.Where(u=>u.User.Id == user.Id).ToListAsync());
         }
 
         // GET: Order/Details/5

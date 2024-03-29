@@ -1,0 +1,76 @@
+﻿@model MVCGrup2.Entities.Concrete.Order
+@using MVCGrup2.Areas.Customer.Models
+@using MVCGrup2.Data
+@using MVCGrup2.Enums
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<MVCGrup2User> _userManager;
+@{
+	ViewData["Title"] = "Details";
+	MVCGrup2User? user = await _userManager.GetUserAsync(User);
+}
+
+<h2>Manage Order</h2>
+<hr />
+<p>
+	<a class="btn btn-outline-success" asp-action="Index">Show All Orders</a>
+	<a class="btn btn-outline-success" asp-action="ShowOnlyActives">Show Active Orders Only</a>
+	<a class="btn btn-outline-success" asp-action="ShowOnlyDelivered">Show Delivered Orders Only</a>
+</p>
+<table class="table table-dark table-hover">
+	<thead>
+		<tr style="margin-bottom: 10px">
+			<th>
+				@Html.DisplayNameFor(model => model.OrderDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OrderStatus)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.User.FullName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.User.PhoneNumber)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Total)
+			</th>
+			<th>
+				Set as...
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => Model.OrderDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.OrderStatus)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.User.FullName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.User.PhoneNumber)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.Total)
+			</td>
+			<td>
+				@if (Model.OrderStatus != OrderStatus.Delivered && Model.OrderStatus != OrderStatus.Cancelled)
+				{
+					<a class="btn btn-outline-warning" asp-action="SetOrderStatus" asp-route-id="@Model.Id" asp-route-status="@OrderStatus.OnTheWay">On the way</a>
+					<a class="btn btn-outline-success" asp-action="SetOrderStatus" asp-route-id="@Model.Id" asp-route-status="@OrderStatus.Delivered">Delivered</a>
+					<a class="btn btn-outline-danger" asp-action="SetOrderStatus" asp-route-id="@Model.Id" asp-route-status="@OrderStatus.Cancelled">Cancelled</a>
+				}
+				else
+				{
+					<p>It is @Model.OrderStatus</p>
+				}
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<a class="btn btn-outline-success" asp-action="Index">Back to List</a>
+</div>

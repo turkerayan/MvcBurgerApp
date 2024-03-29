@@ -22,19 +22,14 @@ namespace MVCGrup2.Areas.Admin.Models
 
         public Size Size { get; set; }
 
-        //public int ExtraMatId { get; set; }
+		[ValidateNever]
 
-        //public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
-
-        //public Order Order { get; set; }
-
-        public IFormFile Image { get; set; }
+		public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
         public int MenuCount { get; set; }
 
-        //public string? OrderId { get; set; }
         [ValidateNever]
 
         public ICollection<OrderViewModel> OrdersViewModel { get; set; }
@@ -46,7 +41,7 @@ namespace MVCGrup2.Areas.Admin.Models
             get { return _price; }
             set
             {
-                _price = value; // Store the value in the private field
+                _price = value;
 
                 switch (Size)
                 {
@@ -60,7 +55,7 @@ namespace MVCGrup2.Areas.Admin.Models
                         _price *= 1.3d;
                         break;
                 }
-                _price = _price * MenuCount;
+                _price = _price * 1;
             }
         }
     }
