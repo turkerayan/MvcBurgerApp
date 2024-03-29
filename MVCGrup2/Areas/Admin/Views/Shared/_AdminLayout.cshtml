@@ -29,13 +29,13 @@
                             string currentController = ViewBag.CurrentController;
                         }
                         <li class="nav-item">
-                            <a class="btn-lg @(currentController == "Home" ? "current" : "nav-link btn")" href="@Url.Action("Index", "Home", new { area = "Admin" })">Home</a>
+                            <a class="btn-lg @(Context.Request.Path.StartsWithSegments("/Admin/Home") ? "current" : (Context.Request.Path.Equals("/Admin") ? "current" : "nav-link btn"))" href="@Url.Action("Index", "Home", new { area = "Admin" })">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn-lg @(currentController == "Menu" ? "current" : "nav-link btn")" href="@Url.Action("Index", "Menu", new { area = "Admin" })">Menus</a>
+                            <a class="btn-lg @(Context.Request.Path.StartsWithSegments("/Admin/Menu") ? "current" : "nav-link btn")" href="@Url.Action("Index", "Menu", new { area = "Admin" })">Menus</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn-lg @(currentController == "ExtraMat" ? "current" : "nav-link btn")" href="@Url.Action("Index", "ExtraMat", new { area = "Admin" })">Extra Mats</a>
+                            <a class="btn-lg @(Context.Request.Path.StartsWithSegments("/Admin/ExtraMat") ? "current" : "nav-link btn")" href="@Url.Action("Index", "ExtraMat", new { area = "Admin" })">Extra Mats</a>
                         </li>
                     </ul>
                 </div>

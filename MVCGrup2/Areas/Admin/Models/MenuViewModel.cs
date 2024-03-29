@@ -22,19 +22,12 @@ namespace MVCGrup2.Areas.Admin.Models
 
         public Size Size { get; set; }
 
-        //public int ExtraMatId { get; set; }
-
-        //public ICollection<ExtraMat> ExtraMats { get; set; } = new List<ExtraMat>();
-
-        //public Order Order { get; set; }
-
         public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
         public int MenuCount { get; set; }
 
-        //public string? OrderId { get; set; }
         [ValidateNever]
 
         public ICollection<OrderViewModel> OrdersViewModel { get; set; }
