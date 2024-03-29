@@ -22,7 +22,9 @@ namespace MVCGrup2.Areas.Admin.Models
 
         public Size Size { get; set; }
 
-        public IFormFile Image { get; set; }
+		[ValidateNever]
+
+		public IFormFile Image { get; set; }
         [ValidateNever]
         public string ImagePath { get; set; }
 
@@ -39,7 +41,7 @@ namespace MVCGrup2.Areas.Admin.Models
             get { return _price; }
             set
             {
-                _price = value; // Store the value in the private field
+                _price = value;
 
                 switch (Size)
                 {
@@ -53,7 +55,7 @@ namespace MVCGrup2.Areas.Admin.Models
                         _price *= 1.3d;
                         break;
                 }
-                _price = _price * MenuCount;
+                _price = _price * 1;
             }
         }
     }
