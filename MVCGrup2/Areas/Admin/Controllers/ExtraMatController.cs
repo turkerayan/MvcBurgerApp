@@ -185,9 +185,12 @@ namespace MVCGrup2.Areas.Admin.Controllers
                         ExtraMatUpdate.PictureName = fileName;
 
                     }
+					else
+					{
+						extraMatModel.ImagePath = "\\Pictures\\" + ExtraMatUpdate.PictureName;
+					}
 
-
-                    ExtraMatUpdate.Name = extraMatModel.Name;
+					ExtraMatUpdate.Name = extraMatModel.Name;
                     ExtraMatUpdate.Price = extraMatModel.Price;
                     ExtraMatUpdate.Description = extraMatModel.Description;
                     ExtraMatUpdate.Active = extraMatModel.Active;

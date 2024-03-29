@@ -1,20 +1,20 @@
 ﻿@using MVCGrup2.Areas.Admin.Models
 @using MVCGrup2.Enums
-@model MenuViewModel
+@model ExtraMatViewModel
 
 @{
-	ViewData["Title"] = "Delete Menu";
+	ViewData["Title"] = "Details Menu";
 }
-<p>You can delete a menu from here.</p>
+<p>You can see details of an extra mat from here.</p>
 <hr />
 <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
 <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="~/css/crud.css">
 <div class="row">
 	<div class="col-md-12">
-		<h3> Menu Information </h3>
+		<h3> Extra Mat Information </h3>
 
-		<form asp-action="Delete" method="post">
+		<form asp-action="Edit" method="get">
 			<fieldset>
 
 				<label asp-for="Name">Name</label>
@@ -46,7 +46,7 @@
 
 			</fieldset>
 			<input type="hidden" asp-for="Id" />
-			<button type="submit">Delete</button>
+			<button type="submit">Edit</button>
 		</form>
 
 	</div>
