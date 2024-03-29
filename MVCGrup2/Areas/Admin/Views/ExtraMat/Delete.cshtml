@@ -1,70 +1,53 @@
 ﻿@using MVCGrup2.Areas.Admin.Models
+@using MVCGrup2.Enums
 @model ExtraMatViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+	ViewData["Title"] = "Delete Extra Mat";
 }
+<p>You can delete an extra mat from here.</p>
+<hr />
+<link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="~/css/crud.css">
+<div class="row">
+	<div class="col-md-12">
+		<h3> Extra Mat Information </h3>
 
-<h1>Delete</h1>
+		<form asp-action="Delete" method="post">
+			<fieldset>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ExtraMat</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExtraCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExtraCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-        <dt class = "col-sm-2">
-           <span>
-           Image
-           </span>
-            @* @Html.DisplayNameFor(model => model.PictureName) *@
-        </dt>
-       @*  <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PictureName)
-        </dd> *@
-        <dd class="col-sm-10">
-            <img alt="Resim Yok" height="60px" width="60px" src="@Model.ImagePath" />
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+				<label asp-for="Name">Name</label>
+				<input asp-for="Name" type="text" disabled>
+				<span asp-validation-for="Name" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Description">Description</label>
+				<input asp-for="Description" type="text" disabled>
+				<span asp-validation-for="Description" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Price">Price</label>
+				<input asp-for="Price" disabled>
+				<span asp-validation-for="Price" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Active">Is it active?  <input asp-for="Active" disabled></label>
+				<span asp-validation-for="Active" class="text-danger"></span>
+
+				<hr />
+				<img src="@Model.ImagePath" width="250px" />
+				<label asp-for="Image">Image</label>
+				<input type="file" asp-for="Image" disabled />
+				<span asp-validation-for="Image" class="text-danger"></span>
+
+				<hr>
+
+
+			</fieldset>
+			<input type="hidden" asp-for="Id" />
+			<button type="submit">Delete</button>
+		</form>
+
+	</div>
 </div>

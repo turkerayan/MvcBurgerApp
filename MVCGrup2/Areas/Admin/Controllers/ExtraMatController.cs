@@ -13,20 +13,23 @@ using MVCGrup2.Entities.Concrete;
 namespace MVCGrup2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ExtraMatController : Controller
     {
         private readonly MVCGrup2Context _context;
 
         public ExtraMatController(MVCGrup2Context context)
         {
-            _context = context;
+			
+			_context = context;
         }
 
         // GET: ExtraMat
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExtraMats.ToListAsync());
+			ViewBag.CurrentController = "ExtraMat";
+			ViewData["Title"] = "ExtraMat";
+			return View(await _context.ExtraMats.ToListAsync());
 
 
         }
@@ -182,9 +185,12 @@ namespace MVCGrup2.Areas.Admin.Controllers
                         ExtraMatUpdate.PictureName = fileName;
 
                     }
+					else
+					{
+						extraMatModel.ImagePath = "\\Pictures\\" + ExtraMatUpdate.PictureName;
+					}
 
-
-                    ExtraMatUpdate.Name = extraMatModel.Name;
+					ExtraMatUpdate.Name = extraMatModel.Name;
                     ExtraMatUpdate.Price = extraMatModel.Price;
                     ExtraMatUpdate.Description = extraMatModel.Description;
                     ExtraMatUpdate.Active = extraMatModel.Active;

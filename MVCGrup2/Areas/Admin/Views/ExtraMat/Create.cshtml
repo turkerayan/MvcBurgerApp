@@ -3,65 +3,55 @@
 @model ExtraMatViewModel
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create Extra Mat";
 }
-
-<h1>Create</h1>
-
-<h4>ExtraMat</h4>
+<p>You can create a new extra mat from here.</p>
 <hr />
+<link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="~/css/crud.css">
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ExtraCount" class="control-label"></label>
-                <input asp-for="ExtraCount" class="form-control" />
-                <span asp-validation-for="ExtraCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<Size>()">
-                    <option selected="selected" value="">Please select</option>
-                </select>
-                <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label">Image</label>
-                <input type="file" asp-for="Image" class="form-control" />ImageLoad
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+	<div class="col-md-12">
+		<h3> Extra Mat Information </h3>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+		<form asp-action="Create" method="post" enctype="multipart/form-data">
+			<fieldset>
+
+				<label asp-for="Name">Name</label>
+				<input asp-for="Name" type="text">
+				<span asp-validation-for="Name" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Description">Description</label>
+				<input asp-for="Description" type="text">
+				<span asp-validation-for="Description" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Price">Price</label>
+				<input asp-for="Price">
+				<span asp-validation-for="Price" class="text-danger"></span>
+				<hr>
+
+				<label asp-for="Active">Is it active?  <input asp-for="Active"></label>
+				<span asp-validation-for="Active" class="text-danger"></span>
+
+				<hr />
+				<label asp-for="Image">Image </label>
+
+				<input type="file" asp-for="Image" />
+				<span asp-validation-for="Image" class="text-danger"></span>
+				<hr>
+
+
+			</fieldset>
+			<button type="submit">Create</button>
+		</form>
+
+	</div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

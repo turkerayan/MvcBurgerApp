@@ -40,16 +40,15 @@
                         <li class="nav-item active">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        @if (User.IsInRole("Admin"))
+                        @* @if (User.IsInRole("Admin"))
                         {
-
                             <li class="nav-item">
                                 <a asp-area="Admin" asp-controller="Menu" asp-action="Index" class="nav-link">Menu</a>
                             </li>
                             <li class="nav-item">
                                 <a asp-area="Admin" asp-controller="ExtraMat" asp-action="Index" class="nav-link">ExtraMat</a>
                             </li>
-                        }
+                        } *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Order" asp-action="Create">Order Now!</a>
                         </li>
