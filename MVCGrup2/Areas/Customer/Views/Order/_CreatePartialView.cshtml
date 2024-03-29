@@ -3,7 +3,7 @@
 
 @model OrderViewModel
 
-<h4>OrderViewModel</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +20,7 @@
                             <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
                         </div>
                         <div class="form-group">
-                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <label asp-for="OrderCounts[@item.ExtraCount]" class="control-label"></label>
                             <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
                             <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
                         </div>
@@ -44,7 +44,7 @@
                             <label class="form-check-label" for="ExtraMat_@item.Id">Select</label>
                         </div>
                         <div class="form-group">
-                            <label asp-for="OrderCounts[@item.Id]" class="control-label"></label>
+                            <label asp-for="OrderCounts[@item.MenuCount]" class="control-label"></label>
                             <input type="number" id="OrderCount_@item.Id" name="OrderCounts_@item.Id" class="form-control" onchange="updateTotal(@item.Price, '@item.Id')" value="1" min="1" />
                             <span asp-validation-for="OrderCounts[@item.Id]" class="text-danger"></span>
                         </div>
