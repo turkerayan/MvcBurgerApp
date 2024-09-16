@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,17 +17,18 @@ using Newtonsoft.Json.Linq;
 namespace MVCGrup2.Areas.Customer.Controllers
 {
     [Authorize]
-    [Area("Customer")]
+   [Area("Customer")]
     public class OrderController : Controller
     {
         private readonly MVCGrup2Context _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<MVCGrup2User>_userManager;
 
-
-        public OrderController(MVCGrup2Context context, IMapper mapper)
+        public OrderController(MVCGrup2Context context, IMapper mapper,UserManager<MVCGrup2User>userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
 
         }
 
@@ -70,62 +72,47 @@ namespace MVCGrup2.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Guid id, [Bind("Id,OrderDate,OrderStatus,OrderCount,Total")] OrderViewModel orderVM, [FromForm] string[] SelectedExtraMats)
         {
+
             Dictionary<string, int> extraMalzMiktari = new Dictionary<string, int>();
 
             var formdict = HttpContext.Request.Form.ToDictionary(f => f.Key, f => f.Value.ToString());
 
             foreach (var extraMatId in SelectedExtraMats)
+
             {
-                extraMalzMiktari.Add(extraMatId,int.Parse(formdict["OrderCounts_" + extraMatId]));
+
+                extraMalzMiktari.Add(extraMatId, int.Parse(formdict["OrderCounts_" + extraMatId]));
+
             }
+
+            orderVM.Id = Guid.NewGuid();
 
             Order order = new Order();
+
             order = _mapper.Map<Order>(orderVM);
+
             foreach (var item in extraMalzMiktari)
+
             {
-                var extra = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id ==Guid.Parse(item.Key));
-            //order.ExtraMats.Add()
-                
+
+                var extra = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == Guid.Parse(item.Key));
+
+                order.ExtraMats.Add(extra);
+
+
             }
 
-
-
-            //Guid guid = new Guid();
-
-            //foreach (var item in formData.Keys)
-            //{
-            //    var value = formData[item];
-            //    orderVM.ExtraMats.Add(await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == value));
-
-
-            //}
-
-            //order.OrderCount = Convert.ToInt32(item.Value);
-
-            var extraMat = await _context.ExtraMats.Include(o => o.Orders).FirstOrDefaultAsync(e => e.Id == id);
-            
-            if (extraMat != null)
-                orderVM.ExtraMats.Add(extraMat);
-
-            //var menus = await _context.Menus.FindAsync(id);
-            //if (menus != null)
-            //    orderVM.Menus.Add(menus);
-
-
-            ////orderVM.ExtraMats.Add(extraMat);
-
-            //if (orderVM.ExtraMats != null)
-            //    order.ExtraMats = orderVM.ExtraMats;
-            //if (orderVM.Menus != null)
-            //    order.Menus = orderVM.Menus;
-
-            if (ModelState.IsValid)
-            {
+           
+           var userId=_userManager.GetUserId(HttpContext.User);
+            var user=_userManager.Users.Where(u=>u.Id == userId).FirstOrDefault();
+        //   order.User = user;
+           //order.User =userId;
+             
                 order.Id = Guid.NewGuid();
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            
             return View(order);
         }
 

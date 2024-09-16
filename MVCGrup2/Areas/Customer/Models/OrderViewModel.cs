@@ -4,7 +4,6 @@ using MVCGrup2.Data;
 using MVCGrup2.Entities.Concrete;
 using MVCGrup2.Enums;
 
-
 namespace MVCGrup2.Areas.Customer.Models
 {
     public class OrderViewModel
@@ -23,6 +22,8 @@ namespace MVCGrup2.Areas.Customer.Models
         public ICollection<MenuViewModel> MenusViewModel { get; set; } = new List<MenuViewModel>();
 
         //public string? ExtraMatId { get; set; }
+       
+
         [ValidateNever]
         public ICollection<ExtraMatViewModel> ExtraMatsViewModel { get; set; } = new List<ExtraMatViewModel>();
         //modele ceklimeli

@@ -13,7 +13,7 @@ using MVCGrup2.Entities.Concrete;
 namespace MVCGrup2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ExtraMatController : Controller
     {
         private readonly MVCGrup2Context _context;
@@ -48,10 +48,10 @@ namespace MVCGrup2.Areas.Admin.Controllers
                 Name = extraMat.Name,
                 Description = extraMat.Description,
                 Active = extraMat.Active,
+                ExtraCount = extraMat.ExtraCount,
                 Price = extraMat.Price,
                 Size = extraMat.Size,
                 ImagePath = "\\Pictures\\" + extraMat.PictureName,
-                ExtraCount = extraMat.ExtraCount,
             };
             Order order = new Order();
 
@@ -128,9 +128,9 @@ namespace MVCGrup2.Areas.Admin.Controllers
             ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
             extraMatViewModel.Name = extramat.Name;
             extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
             extraMatViewModel.Price = extramat.Price;
             extraMatViewModel.Active = extramat.Active;
-            extraMatViewModel.ExtraCount = extramat.ExtraCount;
             extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
 
             //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
@@ -215,9 +215,9 @@ namespace MVCGrup2.Areas.Admin.Controllers
             ExtraMatViewModel extraMatViewModel = new ExtraMatViewModel();
             extraMatViewModel.Name = extramat.Name;
             extraMatViewModel.Description = extramat.Description;
+            extraMatViewModel.ExtraCount = extramat.ExtraCount;
             extraMatViewModel.Price = extramat.Price;
             extraMatViewModel.Active = extramat.Active;
-            extraMatViewModel.ExtraCount = extramat.ExtraCount;
             extraMatViewModel.ImagePath = "\\Pictures\\" + extramat.PictureName;
 
             //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures", extramat.PictureName);
