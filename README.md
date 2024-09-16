@@ -1,0 +1,1 @@
+In a burger order website using the MVC pattern, the model manages data such as burger details and orders, while the view presents the user interface for browsing the menu and customizing burgers. The controller acts as the intermediary, handling user input, updating the model, and coordinating the flow of the application to ensure a smooth ordering process. 
